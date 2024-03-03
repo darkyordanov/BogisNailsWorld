@@ -16,8 +16,9 @@ class DetailsProductView(DetailView):
     
 
 class AddProductView(CreateView):
+    queryset = Product.objects.all()
     form_class = ProductForm
-    template_name = 'product/products.html'
+    template_name = 'product/add_product.html'
 
     def get_success_url(self) -> str:
        return reverse_lazy('details product', kwargs={

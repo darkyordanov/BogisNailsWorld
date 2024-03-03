@@ -8,7 +8,7 @@ urlpatterns = (
     path('add_product/', AddProductView.as_view(), name='add product'),
     
     path('<int:pk>/', include([
-        path('details_product/', DetailsProductView.as_view(), name='details product'),
+        path('', DetailsProductView.as_view(), name='details product'),
         path('edit_products/', EditProductView.as_view(), name='edit product'),
         path('delete_product/', DeleteProductView.as_view(), name='delete product'),
     ])),

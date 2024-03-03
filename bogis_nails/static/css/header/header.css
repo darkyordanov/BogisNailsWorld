@@ -62,6 +62,10 @@ main {
     background-color: #56887d;
 }
 
+.btn-primary:active {
+    background-color: #f3b6b6; /* Change background color when button is clicked */
+}
+
 .btn-secondary {
     color: #f3b6b6;
     background-color: #084041;

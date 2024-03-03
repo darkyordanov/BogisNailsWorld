@@ -6,6 +6,7 @@ from bogis_nails.catalog.views import \
 urlpatterns = (
     path('', nails_catalog, name='nails catalog'),
     path('add_nails_design_cbv/', CreateNailsDesignView.as_view(), name='add nails design cbv'),
+    
     path('<int:pk>/', include([
         path('', nails_details, name='nails details'),
         path('edit_nails/', EditNailsDesignView.as_view(), name='edit nails'),

@@ -1,7 +1,41 @@
-<h1> Add Product </h1>
+{% extends "base.html" %}
 
-<form action="add product" method="post">
-    {{ form }}
-    <a href="{% url 'details product' pk=object.pk %}">Addt</a>
-    {% csrf_token %}
-</form>
+{% block main_content %}
+
+<main class="container mt-4">
+    <!-- Add Nails Section -->
+    <section class="section">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center">Add Product</h1>
+                <hr>
+                <form method="post" action="{% url 'add product' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        {{ form.price }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        {{ form.quantity }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        {{ form.image }}
+                        <small class="form-text text-muted"><br>Upload an image for the product</br></small> <!-- Help text -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Add</button>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

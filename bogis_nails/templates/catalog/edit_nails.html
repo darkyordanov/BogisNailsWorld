@@ -1,141 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
 
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Nails - Bogi's Nails World</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        /* Background image */
-        body {
-            background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            margin-bottom: 60px; /* Adjust margin to accommodate footer height */
-            font-family: 'Arial', sans-serif;
-        }
+{% block main_content %}
 
-        /* Style for main content */
-        main {
-            min-height: calc(100vh - 60px); /* Subtracting footer height */
-        }
-
-        /* Center align text */
-        .text-center {
-            text-align: center;
-        }
-
-        /* Add padding to sections */
-        .section {
-            padding: 100px;
-            background-color: transparent; /* Set the background to transparent */
-            border-radius: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Style form elements */
-        .form-control {
-            border-radius: 8px;
-            border: 1px solid #ced4da;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.8); /* Set a semi-transparent white background */
-        }
-
-        /* Style buttons */
-        .btn-primary {
-            background-color: #bc5c28;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .btn-primary:hover {
-            background-color: #af0a0a;
-        }
-
-        /* Style links */
-        a {
-            color: #bc5c28;
-            text-decoration: none;
-        }
-
-        a:hover {
-            color: #af0a0a;
-            text-decoration: underline;
-        }
-
-        /* Sticky footer */
-        .footer {
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-            background-color: #c9a17a;
-            color: #343a40;
-            padding: 20px 0;
-            text-align: center;
-        }
-    </style>
-</head>
-
-<body>
-
-    <!-- Include Header -->
-    {% include "partials/header.html" %}
-
-    <!-- Content Section -->
-    <main class="container mt-4">
-        <!-- Edit Nails Section -->
-        <section class="section">
-            <div class="row">
-                <div class="col-md-6 offset-md-3">
-                    <h1 class="text-center">Edit Nails</h1>
-                    <hr>
-                    <form method="post" enctype="multipart/form-data" action="{% url 'edit nails' pk=nails_design.pk %}">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            <label for="title" class="form-label">Title</label>
-                            {{ form.title }}
-                        </div>
-                        <div class="mb-3">
-                            <label for="colors" class="form-label">Colors</label>
-                            <select name="colors" id="colors" class="form-control">
-                                {% for value, label in form.colors.field.choices %}
-                                    <option value="{{ value }}" {% if value == nails_design.colors %} selected {% endif %}>{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                            <small class="form-text text-muted">Choose new color for the nails</small> <!-- Help text -->
-                        </div>
-                        <div class="mb-3">
-                            <label for="size" class="form-label">Size</label>
-                            <select name="size" id="size" class="form-control">
-                                {% for value, label in form.size.field.choices %}
-                                    <option value="{{ value }}" {% if value == nails_design.size %} selected {% endif %}>{{ label }}</option>
-                                {% endfor %}
-                            </select>
-                            <small class="form-text text-muted">Select new size of the nails</small> <!-- Help text -->
-                        </div>
-                        <div class="mb-3">
-                            <label for="image" class="form-label">Image</label>
-                            {{ form.image }}
-                            <small class="form-text text-muted"><br>Upload a new image for the nails</br></small> <!-- Help text -->
-                        </div>
-                        <button type="submit" class="btn btn-primary">Edit</button>
-                        {% comment %} <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Delete</button> {% endcomment %}
-                        <a href="{% url 'delete nails' pk=nails_design.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
-                    </form>
-                </div>
+<main class="container mt-4">
+    <!-- Edit Nails Section -->
+    <section class="section">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center">Edit Nails</h1>
+                <hr>
+                <form method="post" enctype="multipart/form-data" action="{% url 'edit nails' pk=nails_design.pk %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="colors" class="form-label">Colors</label>
+                        <select name="colors" id="colors" class="form-control">
+                            {% for value, label in form.colors.field.choices %}
+                                <option value="{{ value }}" {% if value == nails_design.colors %} selected {% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-text text-muted">Choose new color for the nails</small> <!-- Help text -->
+                    </div>
+                    <div class="mb-3">
+                        <label for="size" class="form-label">Size</label>
+                        <select name="size" id="size" class="form-control">
+                            {% for value, label in form.size.field.choices %}
+                                <option value="{{ value }}" {% if value == nails_design.size %} selected {% endif %}>{{ label }}</option>
+                            {% endfor %}
+                        </select>
+                        <small class="form-text text-muted">Select new size of the nails</small> <!-- Help text -->
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        {{ form.image }}
+                        <small class="form-text text-muted"><br>Upload a new image for the nails</br></small> <!-- Help text -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    {% comment %} <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Delete</button> {% endcomment %}
+                    <a href="{% url 'delete nails' pk=nails_design.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
+                </form>
             </div>
-        </section>
-    </main>
-
-    <!-- Include Footer -->
-    {% include "partials/footer.html" %}
-
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-
-</html>
+        </div>
+    </section>
+</main>
+{% endblock %}
