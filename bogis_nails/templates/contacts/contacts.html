@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <!-- Content Section -->
+    <main class="container mt-4">
+        <!-- Contact Information Section -->
+        <section class="section">
+            <div class="row">
+                <div class="col-md-6">
+                    <h1 class="text-center">Contact Information</h1>
+                    <hr>
+                    <div>
+                        <h2>Phone number:</h2>
+                        <h2 class="text-center"><strong>{{ phone_number }}</strong></h2>
+                    </div>
+                    <hr>
+                    <div>
+                        <h2>Email address:</h2>
+                        <h2 class="text-center"><strong>{{ email }}</strong></h2>
+                    </div>
+                    <hr>
+                    <div>
+                        <h2>Address:</h2>
+                        <h2 class="text-center"><strong>{{ address }}</strong></h2>
+                    </div>
+                    <hr>
+                    <div>
+                        <h2>Google Maps address:</h2>
+                        <h2 class="text-center">
+                            <a href="https://www.google.com/maps/place/ж.к.+Банишора,+20,+1233+София/@42.7089033,23.3078404,17z/data=!3m1!4b1!4m6!3m5!1s0x40aa8559e850dfc1:0x5c8125a688ec2a0e!8m2!3d42.7088994!4d23.3104153!16s%2Fg%2F11c5c2btvq?entry=ttu" 
+                                target="_blank"><strong>Google Maps</strong></a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+{% endblock %}

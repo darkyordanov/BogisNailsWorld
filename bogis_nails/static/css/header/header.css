@@ -1,0 +1,98 @@
+/* styles.css */
+
+/* Background image */
+body, .navbar {
+    background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Set text color to #084041 when hovering over non-button links */
+.navbar-nav .nav-link:not(.btn):hover {
+    color: #b76e79; /* Change text color to #084041 */
+}
+
+/* Reset background color when hovering over non-button links */
+.navbar-nav .nav-link:not(.btn):hover {
+    background-color: transparent; /* Reset background color */
+}
+
+body {
+    background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space-contacts.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin-bottom: 60px; /* Adjust margin to accommodate footer height */
+}
+
+/* Style for main content */
+main {
+    min-height: calc(100vh - 60px); /* Subtracting footer height */
+}
+
+/* Center align text */
+.text-center {
+    text-align: center;
+}
+
+.section {
+    padding: 200px;
+    background-color: transparent; /* Set the background to transparent */
+    border-radius: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Add margin-bottom to sections */
+.section:not(:last-child) {
+    margin-bottom: 20px;
+}
+
+/* Style links */
+a {
+    color: #084041;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #af0a0a;
+    text-decoration: underline;
+}
+
+/* Style buttons */
+.btn-primary {
+    color: #f3b6b6;
+    background-color: #084041;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    background-color: #56887d;
+}
+
+.btn-secondary {
+    color: #f3b6b6;
+    background-color: #084041;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background-color: #56887d;
+}
+
+/* Sticky footer */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #c9a17a;
+    color: #343a40;
+    padding: 8px 20px;
+    text-align: center;
+}

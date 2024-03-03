@@ -1,0 +1,7 @@
+<h1> Add Product </h1>
+
+<form action="add product" method="post">
+    {{ form }}
+    <a href="{% url 'details product' pk=object.pk %}">Addt</a>
+    {% csrf_token %}
+</form>
