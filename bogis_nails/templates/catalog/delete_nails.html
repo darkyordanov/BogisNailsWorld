@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Nails - Bogi's Nails World</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Background image */
+        body {
+            background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            margin-bottom: 60px; /* Adjust margin to accommodate footer height */
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Style for main content */
+        main {
+            min-height: calc(100vh - 60px); /* Subtracting footer height */
+        }
+
+        /* Center align text */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Add padding to sections */
+        .section {
+            padding: 200px;
+            background-color: transparent; /* Set the background to transparent */
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style form elements */
+        .form-control {
+            border-radius: 8px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg'); /* Use the same background image */
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #fff; /* Set text color to white for better readability */
+        }
+
+        /* Style buttons */
+        .btn-primary {
+            background-color: #bc5c28;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #af0a0a;
+        }
+
+        /* Style links */
+        a {
+            color: #bc5c28;
+            text-decoration: none;
+        }
+
+        a:hover {
+            color: #af0a0a;
+            text-decoration: underline;
+        }
+
+        /* Sticky footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #c9a17a;
+            color: #343a40;
+            padding: 20px 0;
+            text-align: center;
+        }
+
+        /* Style for bold text */
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Include Header -->
+    {% include "partials/header.html" %}
+
+    <!-- Content Section -->
+    <main class="container mt-4">
+        <!-- Delete Nails Section -->
+        <section class="section">
+            <div class="row">
+                <div class="col-md-6 offset-md-3">
+                    <h1 class="text-center">Delete Nails</h1>
+                    <hr>
+                    <p class="text-center">Are you sure you want to delete the following nails design?</p>
+                    <hr>
+                    <!-- Display Nails Details -->
+                    <div class="mb-3">
+                        <label for="title" class="form-label bold">Title</label>
+                        <p>{{ nails_design.title }}</p>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="colors" class="form-label bold">Color</label>
+                        <p>{{ nails_design.colors }}</p>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="size" class="form-label bold">Size</label>
+                        <p>{{ nails_design.size }}</p>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="created_at" class="form-label bold">Created At</label>
+                        <p>{{ nails_design.created_at }}</p>
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="image" class="form-label bold">Image</label>
+                        <img src="{{ nails_design.image.url }}" alt="{{ nails_design.title }}" class="img-fluid">
+                    </div>
+                    <hr>
+
+                    <form method="post" action="{% url 'delete nails' nails_design.pk %}">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Confirm Delete</button>
+                    </form>
+                    <a href="{% url 'nails catalog' %}" class="btn btn-primary">Cancel</a>
+
+                    {% comment %} <form method="post">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Confirm Delete</button>
+                    </form>
+                    <a href="{% url 'nails catalog' %}" class="btn btn-primary">Cancel</a> {% endcomment %}
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Include Footer -->
+    {% include "partials/footer.html" %}
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

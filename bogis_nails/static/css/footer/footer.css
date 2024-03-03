@@ -1,0 +1,82 @@
+@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100..800&family=Poppins:wght@400;700&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font: 14px/1.5 'Playpen Sans', sans-serif;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.site-footer {
+    color: rgb(56, 42, 42);
+    background-color: rgb(163, 143, 143);
+}
+
+.site-footer > p {
+    margin-top: 2em;
+    text-align: center;
+    border-top:1px solid rgb(56, 42, 42);;
+
+}
+
+.information {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2em;
+    
+}
+
+
+
+.container {
+    display: flex;
+    justify-content: space-around;
+    gap:3em;
+}
+
+.container h1 {
+    font-size: 24px;
+    margin-bottom: 2em;
+}
+
+
+.contact-us p {
+    font-size: 18px;
+    line-height:1.66em;
+}
+
+.follow-us-container svg {
+    fill:rgb(56, 42, 42);
+
+}
+
+
+@media (max-width:768px) {
+    .information {
+        flex-direction: column;
+        gap: 2em;
+    }
+
+    .contact-us p {
+        font-size: 16px;
+    }
+
+    .container h1 {
+        font-size: 22px;
+        
+    }
+    
+}
+
