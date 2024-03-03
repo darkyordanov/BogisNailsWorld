@@ -48,17 +48,6 @@ main {
     margin-bottom: 20px;
 }
 
-/* Style links */
-a {
-    color: #084041;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #af0a0a;
-    text-decoration: underline;
-}
-
 /* Style buttons */
 .btn-primary {
     color: #f3b6b6;
