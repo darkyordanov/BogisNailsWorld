@@ -86,7 +86,9 @@ class EditNailsDesignView(UpdateView):
         return context
 
     def get_success_url(self):
-        return reverse_lazy('nails details', kwargs={'pk': self.object.pk})
+        return reverse_lazy('nails details', kwargs={
+            'pk': self.object.pk
+        })
     
 
 # FBV's

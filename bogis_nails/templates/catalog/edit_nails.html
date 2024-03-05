@@ -9,7 +9,7 @@
             <div class="col-md-6 offset-md-3">
                 <h1 class="text-center">Edit Nails</h1>
                 <hr>
-                <form method="post" enctype="multipart/form-data" action="{% url 'edit nails' pk=nails_design.pk %}">
+                <form method="post" enctype="multipart/form-data" action="{% url 'edit nails' pk=object.pk %}">
                     {% csrf_token %}
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
@@ -19,7 +19,7 @@
                         <label for="colors" class="form-label">Colors</label>
                         <select name="colors" id="colors" class="form-control">
                             {% for value, label in form.colors.field.choices %}
-                                <option value="{{ value }}" {% if value == nails_design.colors %} selected {% endif %}>{{ label }}</option>
+                                <option value="{{ value }}" {% if value == object.colors %} selected {% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                         <small class="form-text text-muted">Choose new color for the nails</small> <!-- Help text -->
@@ -28,7 +28,7 @@
                         <label for="size" class="form-label">Size</label>
                         <select name="size" id="size" class="form-control">
                             {% for value, label in form.size.field.choices %}
-                                <option value="{{ value }}" {% if value == nails_design.size %} selected {% endif %}>{{ label }}</option>
+                                <option value="{{ value }}" {% if value == object.size %} selected {% endif %}>{{ label }}</option>
                             {% endfor %}
                         </select>
                         <small class="form-text text-muted">Select new size of the nails</small> <!-- Help text -->
@@ -38,9 +38,18 @@
                         {{ form.image }}
                         <small class="form-text text-muted"><br>Upload a new image for the nails</br></small> <!-- Help text -->
                     </div>
+                    <div class="mb-3">
+                        <label for="created_at" class="form-label">Created at: <strong>{{ object.created_at }}</strong></label>
+                        <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="modified_at" class="form-label">Last Modifited at: <strong>{{ object.modified_at }}</strong></label>
+                        <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
+                    </div>
                     <button type="submit" class="btn btn-primary">Edit</button>
                     {% comment %} <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Delete</button> {% endcomment %}
-                    <a href="{% url 'delete nails' pk=nails_design.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
+                    <a href="{% url 'delete nails' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
                 </form>
             </div>
         </div>

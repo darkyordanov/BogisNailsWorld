@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<main class="container mt-4">
+    <!-- Edit Product Section -->
+    <section class="section">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center">Edit Product</h1>
+                <hr>
+                <form method="post" enctype="multipart/form-data" action="{% url 'edit product' pk=object.pk %}">
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="title" class="form-label">Title</label>
+                        {{ form.title }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="description" class="form-label">Description</label>
+                        {{ form.description }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="price" class="form-label">Price</label>
+                        {{ form.price }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="quantity" class="form-label">Quantity</label>
+                        {{ form.quantity }}
+                    </div>
+                    <div class="mb-3">
+                        <label for="image" class="form-label">Image</label>
+                        {{ form.image }}
+                        <small class="form-text text-muted"><br>Upload a new image for the product</br></small> <!-- Help text -->
+                    </div>
+                    <div class="mb-3">
+                        <label for="created_at" class="form-label">Created at: <strong>{{ object.created_at }}</strong></label>
+                        <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
+                    </div>
+                    <hr>
+                    <div class="mb-3">
+                        <label for="modified_at" class="form-label">Last Modifited at: <strong>{{ object.modified_at }}</strong></label>
+                        <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <a href="{% url 'delete product' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

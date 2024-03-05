@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<main class="container mt-4">
+    <!-- Delete Product Section -->
+    <section class="section">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center">Delete Product</h1>
+                <hr>
+                <p class="text-center">Are you sure you want to delete the following product?</p>
+                <hr>
+                <!-- Display Product -->
+                <div class="mb-3">
+                    <label for="title" class="form-label bold"><strong>Title</strong></label>
+                    <p>{{ object.title }}</p>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="description" class="form-label bold"><strong>Description</strong></label>
+                    <p>{{ object.description }}</p>
+                </div>
+                <hr>
+                <hr>
+                <div class="mb-3">
+                    <label for="price" class="form-label bold"><strong>Price</strong></label>
+                    <p>{{ object.price }}</p>
+                </div>
+                <hr>
+                <hr>
+                <div class="mb-3">
+                    <label for="quantity" class="form-label bold"><strong>Quantity</strong></label>
+                    <p>{{ object.quantity }}</p>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="image" class="form-label bold"><strong>Image</strong></label>
+                    <img src="{{ object.image.url }}" alt="{{ object.title }}" class="img-fluid">
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="created_at" class="form-label bold"><strong>Created At</strong></label>
+                    <p>{{ object.created_at }}</p>
+                </div>
+                <hr>
+
+                <form method="post" action="{% url 'delete product' pk=object.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Confirm Delete</button>
+                </form>
+                <a href="{% url 'details product' pk=object.pk%}" class="btn btn-primary">Cancel</a>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}
