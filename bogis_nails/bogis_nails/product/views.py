@@ -1,4 +1,3 @@
-from django.http import HttpRequest, HttpResponse
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from bogis_nails.product.models import Product
@@ -49,7 +48,6 @@ class DeleteProductView(DeleteView):
         return context
 
     def delete(self, request, *args, **kwargs):
-        # Delete object and redirect to success URL
         self.object = self.get_object()
         self.object.delete()
         return super().delete(request, *args, **kwargs)

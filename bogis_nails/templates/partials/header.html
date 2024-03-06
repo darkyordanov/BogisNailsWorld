@@ -31,8 +31,7 @@
                         <a class="nav-link" href="#">Price List</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'products' %}">Nails Care</a>
-                        {% comment %} <a class="nav-link" href="{% url 'products' %}">Products</a> {% endcomment %}
+                        <a class="nav-link" href="{% url 'products' %}">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Loyalty program</a>
@@ -47,7 +46,8 @@
                         <button type="button" class="btn btn-primary">Login</button>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-secondary">Register</button>
+                        {% comment %} <button type="button" class="btn btn-secondary">Register</button> {% endcomment %}
+                        <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
                     </li>
                 </ul>
             </div>

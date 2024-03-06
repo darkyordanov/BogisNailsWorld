@@ -31,7 +31,7 @@ INSTALLED_APPS = [
     'bogis_nails.price',
     'bogis_nails.product',
     'bogis_nails.contacts',
-    'bogis_nails.user',
+    'bogis_nails.account',
     'bogis_nails.schedule',
 ]
 

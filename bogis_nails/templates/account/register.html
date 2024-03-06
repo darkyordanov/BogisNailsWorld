@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<main class="container mt-4">
+    <!-- Add Nails Section -->
+    <section class="section">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center">Register</h1>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                {% comment %} <form action="{% url 'account' pk=object.pk%}?/next={{ next }}" method="post"> {% endcomment %}
+                <form action="{% url 'register'%}" method="post">
+                    {% csrf_token %}
+                
+                    <div class="mb-3">
+                        {% comment %} <label for="title" class="form-label">Username</label> {% endcomment %}
+                        {{ form.as_p }}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <a href="#" class="btn btn-secondary">Login</a>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+
+ {% endblock %}
+
+ 
