@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'bogis_nails.product',
     'bogis_nails.contacts',
     'bogis_nails.account',
-    'bogis_nails.schedule',
+    'bogis_nails.booking',
 ]
 
 MIDDLEWARE = [
@@ -68,7 +68,8 @@ WSGI_APPLICATION = 'bogis_nails.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bogis_nails_db",
+        # "NAME": "bogis_nails_db",
+        "NAME": "bogis_nails_db_test",
         "USER": "postgres",
         "PASSWORD": "admin",
         "HOST": "127.0.0.1",
@@ -94,6 +95,9 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+if DEBUG:
+    AUTH_PASSWORD_VALIDATORS = ()
 
 
 # Internationalization
@@ -126,3 +130,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'account.CustomUser'
