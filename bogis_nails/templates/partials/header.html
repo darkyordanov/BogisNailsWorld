@@ -43,7 +43,8 @@
                         <a class="nav-link" href="{% url 'contacts' %}">Contacts</a>
                     </li>
                     <li class="nav-item">
-                        <button type="button" class="btn btn-primary">Login</button>
+                        {% comment %} <button type="button" class="btn btn-primary">Login</button> {% endcomment %}
+                        <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
                     </li>
                     <li class="nav-item">
                         {% comment %} <button type="button" class="btn btn-secondary">Register</button> {% endcomment %}

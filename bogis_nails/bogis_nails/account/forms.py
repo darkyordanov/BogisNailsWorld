@@ -8,6 +8,8 @@ class AccountUserChangeForm(auth_forms.UserChangeForm):
     class Meta(auth_forms.UserChangeForm.Meta):
         model = UserModel
         fields = '__all__'
+        # we can add additional custom fields to the form
+        # fields = auth_forms.UserChangeForm.Meta.fields + ('birth_date',)
         
 
 class AccountRegisterForm(auth_forms.UserCreationForm):
