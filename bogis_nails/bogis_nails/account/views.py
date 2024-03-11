@@ -34,7 +34,7 @@ class DetailsAccountView(views.DetailView):
     # not sure, about details account, because
     # when u are in your profile
     template_name = 'account/details_account'
-    model = CustomUser 
+    model = UserModel 
     
     def get_success_url(self):
         return reverse_lazy('account', kwargs={
