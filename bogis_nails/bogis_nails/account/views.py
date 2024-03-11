@@ -10,6 +10,9 @@ UserModel = get_user_model()
 # from django.contrib.auth.decorators import login_required
 
 class RegisterAccountView(views.CreateView):
+    # TODO: fix authentication form for register
+    # TODO: update 'account' -> 'profile'
+    
     # UserCreationForm overright it
     form_class = AccountRegisterForm
     template_name = 'account/register.html'
