@@ -20,11 +20,10 @@ class UserModelAdmin(auth_admin.UserAdmin):
     fieldsets = (
         (None, {"fields": ("email", "password")}),
         ("Personal info", {"fields": ()}),
-        ("Permissions", {"fields": ("is_active", "is_staff", "groups",
-                                    "user_permissions")}),
-
+        ("Permissions", {"fields": ("is_active", "is_staff", "groups", "user_permissions")}),
         ("Important dates", {"fields": ("last_login",)}),
     )
+    
     add_fieldsets = (
         (
             None,

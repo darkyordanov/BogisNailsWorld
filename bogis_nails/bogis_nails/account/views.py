@@ -1,8 +1,11 @@
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views
+from django.contrib.auth import get_user_model
 
 from bogis_nails.account.forms import AccountRegisterForm
+
+UserModel = get_user_model()
 
 # from django.contrib.auth.decorators import login_required
 
@@ -30,7 +33,14 @@ class LogoutAccountView(auth_views.LogoutView):
 class DetailsAccountView(views.DetailView):
     # not sure, about details account, because
     # when u are in your profile
-    pass
+    template_name = 'account/details_account'
+    model = CustomUser 
+    
+    def get_success_url(self):
+        return reverse_lazy('account', kwargs={
+            'pk': self.object.pk,
+        })
+    
 
 
 class EditAccountView(views.UpdateView):

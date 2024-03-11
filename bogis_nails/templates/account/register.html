@@ -11,7 +11,7 @@
                 <hr>
                 <form method="post" enctype="multipart/form-data">
                 {% comment %} <form action="{% url 'account' pk=object.pk%}?/next={{ next }}" method="post"> {% endcomment %}
-                <form action="{% url 'register'%}" method="post">
+                <form action="{% url 'register'%}" method="post" autocomplete="off">
                     {% csrf_token %}
                 
                     <div class="mb-3">
