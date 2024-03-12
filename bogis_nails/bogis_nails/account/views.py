@@ -41,8 +41,18 @@ class DetailsAccountView(views.DetailView):
     # not sure, about details account, because
     # when u are in your profile
     template_name = 'account/details_account.html'
-    model = UserModel
+    queryset = UserModel.objects.all()
+    # context_object_name = 'profile'  # Define the context object name
     
+    # def get_object(self, queryset=None):
+    #     # Return the current logged-in user's profile
+    #     return self.request.user
+
+    
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     # You can add additional context data here if needed
+    #     return context
     
 class EditAccountView(views.UpdateView):
     pass

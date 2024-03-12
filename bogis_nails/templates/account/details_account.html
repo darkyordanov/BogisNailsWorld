@@ -8,10 +8,10 @@
 
         <div class="row">
             <div class="col-md-6 mb-4">
-                {% if object.image %}
-                <img src="{{ object.account_picture.url }}" class="img-fluid" alt="{{ object.username }}">
+                {% if object.account_picture %}
+                    <img src="{{ object.account_picture.url }}" class="img-fluid" alt="{{ object.username }}">
                 {% else %}
-                <div class="no-image-placeholder">No Profile Image Available</div>
+                    <div class="no-image-placeholder">No Profile Image Available</div>
                 {% endif %}
             </div>
             <div class="col-md-6">

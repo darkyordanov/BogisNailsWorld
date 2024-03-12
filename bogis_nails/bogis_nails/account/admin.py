@@ -18,11 +18,12 @@ class UserModelAdmin(auth_admin.UserAdmin):
     add_form = AccountRegisterForm
     
     fieldsets = (
-        (None, {"fields": ("email", "password")}),
+        (None, {"fields": ("email", "password", "first_name", "last_name", "birth_date", "account_picture")}),
         ("Personal info", {"fields": ()}),
         ("Permissions", {"fields": ("is_active", "is_staff", "groups", "user_permissions")}),
         ("Important dates", {"fields": ("last_login",)}),
     )
+    
     
     add_fieldsets = (
         (
