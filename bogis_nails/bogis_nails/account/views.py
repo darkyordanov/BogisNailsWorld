@@ -28,9 +28,13 @@ class LoginAccountView(auth_views.LoginView):
     template_name = 'account/login.html'
     success_url = reverse_lazy('index')
 
+# class LogoutAccountView(auth_views.LogoutView):
+#     # redirect to home page
+#     success_url = reverse_lazy('index')
 class LogoutAccountView(auth_views.LogoutView):
-    # redirect to home page
-    pass
+    # remove the template_name attribute
+    # success_url = reverse_lazy('index')
+    next_page = '/'
 
 
 class DetailsAccountView(views.DetailView):

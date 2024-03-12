@@ -29,18 +29,18 @@
 {% endblock %}
 
 {% comment %} 
-                    <form class="login" action="{% url 'login' %}" method="get">
-                        {% csrf_token %}
-                        <div class="mb-3">
-                            {{ form.as_p }}
-                            {{ request.user }}
-                        </div>
-                        <br>
-                        <button type="submit" class="btn btn-primary">Login</button>
-                        <br>
-                        or
-                        <br>
-                        <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
-                        
-                    </form> 
-                    {% endcomment %}
+    <form class="login" action="{% url 'login' %}" method="get">
+        {% csrf_token %}
+        <div class="mb-3">
+            {{ form.as_p }}
+            {{ request.user }}
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Login</button>
+        <br>
+        or
+        <br>
+        <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
+        
+    </form> 
+{% endcomment %}
