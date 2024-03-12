@@ -40,16 +40,10 @@ class LogoutAccountView(auth_views.LogoutView):
 class DetailsAccountView(views.DetailView):
     # not sure, about details account, because
     # when u are in your profile
-    template_name = 'account/details_account'
-    model = UserModel 
+    template_name = 'account/details_account.html'
+    model = UserModel
     
-    def get_success_url(self):
-        return reverse_lazy('account', kwargs={
-            'pk': self.object.pk,
-        })
     
-
-
 class EditAccountView(views.UpdateView):
     pass
 
