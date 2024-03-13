@@ -25,3 +25,27 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
             # 'last_name': forms.TextInput(attrs={'placeholder': 'Last name'}),
             # 'birth_date': forms.DateInput(attrs={'placeholder': 'Birth date'}),
         }
+
+# Update form when user is success register to update her/his profile information later
+# class AccountUpdateForm(auth_forms.UserCreationForm):
+#     age = forms.IntegerField()
+
+#     # Other fields of `Profile`
+
+#     class Meta(auth_forms.UserCreationForm.Meta):
+#         model = UserModel
+#         fields = (UserModel.USERNAME_FIELD,)
+#         # fields = auth_forms.UserCreationForm.Meta.fields + ("age",)
+
+#     def save(self, commit=True):
+#         user = super().save(commit=commit)
+
+#         profile = Profile(
+#             user=user,
+#             age=self.cleaned_data["age"],
+#         )
+
+#         if commit:
+#             profile.save()
+
+#         return user

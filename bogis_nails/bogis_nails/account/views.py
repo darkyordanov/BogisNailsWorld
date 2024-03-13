@@ -34,6 +34,7 @@ class LoginAccountView(auth_views.LoginView):
 class LogoutAccountView(auth_views.LogoutView):
     # remove the template_name attribute
     # success_url = reverse_lazy('index')
+    template_name = 'account/logout.html'
     next_page = '/'
 
 

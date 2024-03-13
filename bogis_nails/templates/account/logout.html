@@ -1,7 +1,9 @@
-<h1>{{ request.user.is_authenticated }}</h1>
+{% extends "base.html" %}
 
+{% load static %}
 
-{% comment %} 
+{% block main_content %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -54,5 +56,6 @@
         });
     </script>
 </body>
-</html> {% endcomment %}
+</html>
 
+{% endblock %}
