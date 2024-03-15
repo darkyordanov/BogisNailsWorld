@@ -1,10 +1,13 @@
 from django.db.models.base import Model as Model
-from django.db.models.query import QuerySet
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, CreateView, UpdateView, ListView
+from django.views.generic import DeleteView, CreateView, UpdateView
+from django.contrib.auth import mixins as auth_mixin
+from django.contrib.auth.decorators import login_required
 
-from bogis_nails.catalog.forms import NailDesignCreateForm, NailDesignEditForm, NailDesignDeleteForm
+from bogis_nails.catalog.forms import \
+    NailDesignCreateForm, NailDesignEditForm
+    
 from bogis_nails.catalog.models import NailDesign
 
 
@@ -35,6 +38,7 @@ def nails_catalog(request):
     return render(request, 'catalog/nails_catalog.html', context)
 
 
+@login_required
 def nails_details(request, pk):
     nails_design = NailDesign.objects.get(id=pk)
     
@@ -45,8 +49,7 @@ def nails_details(request, pk):
     return render(request, 'catalog/nails_details.html', context)
 
 
-# CBV's
-class CreateNailsDesignView(CreateView):
+class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, CreateView):
     model = NailDesign
     form_class = NailDesignCreateForm
     template_name = 'catalog/add_nails_design.html'
@@ -56,26 +59,8 @@ class CreateNailsDesignView(CreateView):
             'pk': self.object.pk
         })
 
-# FBV's
-# def add_nails_design(request):
-#     if request.method == 'POST':
-#         form = NailDesignCreateForm(request.POST, request.FILES)
-        
-#         if form.is_valid():
-#             nails_design = form.save()
-#             return redirect('nails catalog')
-#     else:
-#         form = NailDesignCreateForm()
-        
-#     context = {
-#         'form': form,
-#     }
-        
-#     return render(request, 'catalog/add_nails_design.html', context)
 
-
-# CBV's
-class EditNailsDesignView(UpdateView):
+class EditNailsDesignView(auth_mixin.LoginRequiredMixin, UpdateView):
     model = NailDesign
     form_class = NailDesignEditForm
     template_name = 'catalog/edit_nails.html'
@@ -91,32 +76,7 @@ class EditNailsDesignView(UpdateView):
         })
     
 
-# FBV's
-# def edit_nails(request, pk):
-#     # Get the instance of NailDesign with the given primary key
-#     nails_design = NailDesign.objects.get(id=pk)
-    
-#     # Create an instance of the form with the instance of NailDesign
-#     form = NailDesignEditForm(request.POST or None, instance=nails_design)
-    
-#     if request.method == 'POST':  # Check if the request method is POST
-#         if form.is_valid():
-#             form.save()
-#             # Redirect to the appropriate URL after successful form submission
-#             return redirect('nails details', pk=pk)
-    
-#     # Prepare the context dictionary to pass data to the template
-#     context = {
-#         'form': form,
-#         'nails_design': nails_design,
-#     }
-    
-#     # Render the template with the provided context
-#     return render(request, 'catalog/edit_nails.html', context)
-
-
-# CBV's
-class DeleteNailsView(DeleteView):
+class DeleteNailsView(auth_mixin.LoginRequiredMixin, DeleteView):
     model = NailDesign
     template_name = "catalog/delete_nails.html"
     # if I uncomment the form_class , the delete func doesn't work success
@@ -133,33 +93,3 @@ class DeleteNailsView(DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return super().delete(request, *args, **kwargs)
-
-
-# FBV's
-# def delete_nails(request, pk):
-#     nails_design = NailDesign.objects.get(id=pk)
-    
-#     form = NailDesignDeleteForm(request.POST or None, instance=nails_design)
-    
-#     if request.method == 'POST':
-#         form.save()
-#         return redirect('nails catalog')
-        
-#     context = {
-#         'form': form,
-#         'nails_design': nails_design,
-#     }
-        
-#     return render(request, 'catalog/delete_nails.html', context)
-
-
-class NailDesignSearchListView(ListView):
-    model = NailDesign
-    template_name = ".html"
-
-    def get_success_url(self):
-        return reverse_lazy('nails catalog', kwargs={
-            'pk': self.object.pk,
-            'color': self.object.color,
-            'size': self.object.size,
-        })
