@@ -32,6 +32,7 @@
                         {{ form.image }}
                         <small class="form-text text-muted"><br>Upload an image for the product</br></small> <!-- Help text -->
                     </div>
+                    {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>

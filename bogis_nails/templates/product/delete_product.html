@@ -47,6 +47,7 @@
 
                 <form method="post" action="{% url 'delete product' pk=object.pk %}">
                     {% csrf_token %}
+                    {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
                     <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Confirm Delete</button>
                 </form>
                 <a href="{% url 'details product' pk=object.pk%}" class="btn btn-primary">Cancel</a>

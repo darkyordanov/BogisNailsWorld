@@ -41,6 +41,7 @@
                         <label for="modified_at" class="form-label">Last Modifited at: <strong>{{ object.modified_at }}</strong></label>
                         <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
                     </div>
+                    {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
                     <button type="submit" class="btn btn-primary">Edit</button>
                     <a href="{% url 'delete product' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
                 </form>

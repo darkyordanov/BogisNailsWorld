@@ -7,7 +7,7 @@
         <section class="section">
             <div class="row">
                 <div class="col-md-6 offset-md-3">
-                    <h1 class="text-center">Login</h1>
+                    <h1 class="text-center">Log in</h1>
                     <hr>
                                         
                     <form action="{% url 'login' %}?next={{ next }}" method="post">
@@ -17,8 +17,9 @@
                             {{ request.user }}
                         </div>
                     
-                        <button type="submit" class="btn btn-primary">Login</button>
-                        or <a href="{% url 'register' %}">Register</a>
+                        <button type="submit" class="btn btn-primary">Log in</button>
+                        <br></br>
+                        Need an account?  <a href="{% url 'register' %}">Register</a>
                     
                     </form>
 
@@ -27,20 +28,3 @@
         </section>
     </main>
 {% endblock %}
-
-{% comment %} 
-    <form class="login" action="{% url 'login' %}" method="get">
-        {% csrf_token %}
-        <div class="mb-3">
-            {{ form.as_p }}
-            {{ request.user }}
-        </div>
-        <br>
-        <button type="submit" class="btn btn-primary">Login</button>
-        <br>
-        or
-        <br>
-        <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
-        
-    </form> 
-{% endcomment %}
