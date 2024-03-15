@@ -1,7 +1,9 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth import mixins as auth_mixin
+from django.views.generic import \
+    ListView, DetailView, CreateView, UpdateView, DeleteView
+    
 from bogis_nails.product.models import Product
-
 from bogis_nails.product.forms import ProductForm
 
 
@@ -10,12 +12,12 @@ class ProductsView(ListView):
     template_name = 'product/products.html'
     
 
-class DetailsProductView(DetailView):
+class DetailsProductView(auth_mixin.LoginRequiredMixin, DetailView):
     queryset = Product.objects.all()
     template_name = 'product/details_product.html'
     
 
-class AddProductView(CreateView):
+class AddProductView(auth_mixin.LoginRequiredMixin, CreateView):
     queryset = Product.objects.all()
     form_class = ProductForm
     template_name = 'product/add_product.html'
@@ -26,7 +28,7 @@ class AddProductView(CreateView):
        })
             
 
-class EditProductView(UpdateView):
+class EditProductView(auth_mixin.LoginRequiredMixin, UpdateView):
     queryset = Product.objects.all()
     form_class = ProductForm
     template_name = 'product/edit_products.html'
@@ -37,7 +39,7 @@ class EditProductView(UpdateView):
         })
 
 
-class DeleteProductView(DeleteView):
+class DeleteProductView(auth_mixin.LoginRequiredMixin, DeleteView):
     queryset = Product.objects.all()
     template_name = 'product/delete_product.html'
     success_url = reverse_lazy('products')

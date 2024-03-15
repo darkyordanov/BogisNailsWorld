@@ -17,36 +17,41 @@
         <div class="col-md-6">
             <h2 class="mt-4 mb-3">Gallery</h2>
         </div>
+
+        {% if request.user.is_authenticated %}
+            <div class="col-md-6 text-end">
+                <a href="{% url 'add nails design' %}" class="btn btn-primary mt-4 mb-3">Add Nails</a>
+            </div>
+        {% endif %}
         
-        <div class="col-md-6 text-end">
-            <a href="{% url 'add nails design' %}" class="btn btn-primary mt-4 mb-3">Add Nails</a>
-        </div>
     </div>
-    <!-- Search Form -->
     
-    <form method="GET" class="mb-4">
-        <div class="row">
-            <div class="col-md-4">
-                <select name="color" class="form-select">
-                    <option value="" {% if not request.GET.color %}selected{% endif %}>All Colors</option>
-                    {% for color in colors %}
-                        <option value="{{ color }}" {% if request.GET.color == color %}selected{% endif %}>{{ color }}</option>
-                    {% endfor %}
-                </select>
+    <!-- Search Form -->
+    {% if request.user.is_authenticated %}
+        <form method="GET" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="color" class="form-select">
+                        <option value="" {% if not request.GET.color %}selected{% endif %}>All Colors</option>
+                        {% for color in colors %}
+                            <option value="{{ color }}" {% if request.GET.color == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="size" class="form-select">
+                        <option value="" {% if not request.GET.size %}selected{% endif %}>All Sizes</option>
+                        {% for size in sizes %}
+                            <option value="{{ size }}" {% if request.GET.size == size %}selected{% endif %}>{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
             </div>
-            <div class="col-md-4">
-                <select name="size" class="form-select">
-                    <option value="" {% if not request.GET.size %}selected{% endif %}>All Sizes</option>
-                    {% for size in sizes %}
-                        <option value="{{ size }}" {% if request.GET.size == size %}selected{% endif %}>{{ size }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div class="col-md-4">
-                <button type="submit" class="btn btn-primary">Search</button>
-            </div>
-        </div>
-    </form>
+        </form>
+    {% endif %}
     
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {% for nail_design in nail_designs %}
@@ -151,195 +156,3 @@
 </style>
 
 {% endblock %}
-
-{% comment %} {% load static %}
-{% include "partials/header.html" %}
-
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery</title>
-    <link rel="stylesheet" href="{% static 'css/catalog/styles.css' %}">
-</head>
-
-<body>
-    <div class="catalog">
-        {% for nail_design in nail_designs %}
-        <div class="nail-design">
-            <img src="{{ nail_design.image.url }}" alt="{{ nail_design.title }}" class="nail-image">
-            <div class="nail-details">
-                <h2>{{ nail_design.title }}</h2>
-                <p>Color: {{ nail_design.color }}</p>
-                <p>Size: {{ nail_design.size }}</p>
-                <p>Description: {{ nail_design.description }}</p>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-
-    <script src="scripts.js"></script>
-</body>
-{% include "partials/footer.html" %}
-
-</html> {% endcomment %}
-{% comment %}{% include "partials/header.html" %}
-
-<div class="container">
-    <h2 class="mt-4 mb-3">Gallery</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for nail_design in nail_designs %}
-        <div class="col">
-            <div class="card">
-                <img src="{{ nail_design.image.url }}" class="card-img-top" alt="{{ nail_design.title }}">
-                <div class="card-body">
-                    <h5 class="card-title">{{ nail_design.title }}</h5>
-                    <p class="card-text">Color: {{ nail_design.color }}</p>
-                    <p class="card-text">Size: {{ nail_design.size }}</p>
-                    <p class="card-text">Description: {{ nail_design.description }}</p>
-                </div>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-{% include "partials/footer.html" %} {% endcomment %}
-
-
-{% comment %} {% include "partials/header.html" %}
-
-<style>
-    /* Background image */
-    body {
-        background-image: url('/media/backgrounds/nails_catalog/soft-concrete-texture.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-</style>
-
-
-<div class="container">
-    <h2 class="mt-4 mb-3">Gallery</h2>
-    <div class="row row-cols-1 row-cols-md-3 g-4">
-        {% for nail_design in nail_designs %}
-        <div class="col">
-            <div class="card">
-                <img src="{{ nail_design.image.url }}" class="card-img-top nail-image" alt="{{ nail_design.title }}">
-                {% comment %} <div class="card-body">
-                    <h5 class="card-title">{{ nail_design.title }}</h5>
-                    <p class="card-text">Color: {{ nail_design.color }}</p>
-                    <p class="card-text">Size: {{ nail_design.size }}</p>
-                    <p class="card-text">Description: {{ nail_design.description }}</p>
-                </div> 
-            </div>
-        </div>
-        {% endfor %}
-    </div>
-</div>
-
-<!-- Lightbox Overlay -->
-<div id="lightbox-overlay">
-    <div id="lightbox-container">
-        <img id="lightbox-image" src="#" alt="Enlarged Image">
-        <span id="close-lightbox">&times;</span>
-    </div>
-</div>
-
-{% include "partials/footer.html" %}
-
-<script>
-    const nailImages = document.querySelectorAll('.nail-image');
-    const lightboxOverlay = document.getElementById('lightbox-overlay');
-    const lightboxContainer = document.getElementById('lightbox-container');
-    const lightboxImage = document.getElementById('lightbox-image');
-    const closeLightbox = document.getElementById('close-lightbox');
-
-    nailImages.forEach(image => {
-        image.addEventListener('click', () => {
-            const imageUrl = image.getAttribute('src');
-            lightboxImage.setAttribute('src', imageUrl);
-            lightboxOverlay.style.display = 'flex';
-            lightboxContainer.style.width = '50%'; // Set lightbox width
-            lightboxImage.style.width = '100%'; // Set image width
-        });
-
-        // Zoom effect on mouse enter
-        image.addEventListener('mouseenter', () => {
-            image.style.transform = 'scale(1.07)';
-        });
-
-        // Reset zoom effect on mouse leave
-        image.addEventListener('mouseleave', () => {
-            image.style.transform = 'scale(1)';
-        });
-    });
-
-    // Close lightbox
-    lightboxOverlay.addEventListener('click', function (event) {
-        if (event.target === lightboxOverlay || event.target === closeLightbox) {
-            lightboxOverlay.style.display = 'none';
-            lightboxContainer.style.width = 'auto'; // Reset lightbox width
-            lightboxImage.style.width = 'auto'; // Reset image width
-        }
-    });
-</script>
-
-<style>
-    /* Lightbox Overlay Styles */
-    #lightbox-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.8);
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-    }
-
-    #lightbox-container {
-        position: relative;
-        max-width: 80%;
-        max-height: 80%;
-        overflow: auto;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    }
-{% comment %} 
-    #lightbox-container {
-        position: relative;
-        max-width: 65%;
-        max-height: 65%;
-        overflow: auto;
-        border-radius: 20px;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-    } {% endcomment %}
-{% comment  %}
-    #lightbox-image {
-        max-width: 100%;
-        max-height: 100%;
-        margin: auto;
-        display: block;
-        border-radius: 10px;
-    }
-
-    #close-lightbox {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        font-size: 30px;
-        color: #fff;
-        cursor: pointer;
-    }
-
-    #close-lightbox:hover {
-        color: #ccc;
-    }
-</style> {% endcomment %}
-

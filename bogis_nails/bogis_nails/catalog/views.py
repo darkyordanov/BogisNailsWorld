@@ -2,6 +2,7 @@ from django.db.models.base import Model as Model
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import DeleteView, CreateView, UpdateView
+
 from django.contrib.auth import mixins as auth_mixin
 from django.contrib.auth.decorators import login_required
 

@@ -2,13 +2,12 @@ from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth import mixins as auth_mixins
 
 from bogis_nails.account.forms import AccountRegisterForm
 
 UserModel = get_user_model()
 
-# from django.contrib.auth.decorators import login_required
 
 class RegisterAccountView(views.CreateView):
     # TODO: fix authentication form for register
@@ -25,20 +24,16 @@ class RegisterAccountView(views.CreateView):
 
 
 class LoginAccountView(auth_views.LoginView):
-    # redirect to home page
     template_name = 'account/login.html'
     success_url = reverse_lazy('index')
     redirect_authenticated_user = True
     
     
-class LogoutAccountView(auth_views.LogoutView):
-    # remove the template_name attribute
-    # success_url = reverse_lazy('index')
-    
+class LogoutAccountView(auth_views.LogoutView, auth_mixins.LoginRequiredMixin):
     next_page = '/'
 
 
-class DetailsAccountView(views.DetailView, LoginRequiredMixin):
+class DetailsAccountView(views.DetailView, auth_mixins.LoginRequiredMixin):
     # not sure, about details account, because
     # when u are in your profile
     template_name = 'account/details_account.html'
@@ -55,9 +50,9 @@ class DetailsAccountView(views.DetailView, LoginRequiredMixin):
     #     # You can add additional context data here if needed
     #     return context
     
-class EditAccountView(views.UpdateView):
+class EditAccountView(views.UpdateView, auth_mixins.LoginRequiredMixin):
     pass
 
 
-class DeleteAccountView(views.DeleteView):
+class DeleteAccountView(views.DeleteView, auth_mixins.LoginRequiredMixin):
     pass
