@@ -40,7 +40,7 @@
                 </div>
                 <div class="col-md-4">
                     <select name="size" class="form-select">
-                        <option value="" {% if not request.GET.size %}selected{% endif %}>All Sizes</option>
+                        <option value="" {% if not request.GET.size %}selected{% endif %}>All Shapes</option>
                         {% for size in sizes %}
                             <option value="{{ size }}" {% if request.GET.size == size %}selected{% endif %}>{{ size }}</option>
                         {% endfor %}

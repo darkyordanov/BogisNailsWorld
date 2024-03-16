@@ -71,7 +71,7 @@ DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         # "NAME": "bogis_nails_db",
-        "NAME": "bogis_nails_db_test",
+        "NAME": "bogis_nails_db_test2",
         "USER": "postgres",
         "PASSWORD": "admin",
         "HOST": "127.0.0.1",
@@ -133,7 +133,7 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'account.CustomUser'
+AUTH_USER_MODEL = 'account.AccountUser'
 
 LOGIN_REDIRECT_URL = reverse_lazy('index')
 LOGIN_URL = reverse_lazy('login')

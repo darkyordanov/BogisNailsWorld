@@ -90,8 +90,88 @@ main {
     text-align: center;
 }
 
-/* Logo styles */
-.navbar-brand img {
-    max-height: 50px; /* Set the maximum height of the logo */
-    margin-right: 10px; /* Optional: Add margin to the right of the logo */
+
+
+
+
+._1286nb12u3 {
+    justify-content: flex-end;
+}
+
+._1286nb12t9 {
+    align-items: center;
+}
+
+._1286nb11w3 {
+    margin-left: .9375rem;
+}
+
+._1286nb11h9 {
+    margin-right: .625rem;
+}
+
+._1286nb18l {
+    display: flex;
+}
+
+._1286nb1n {
+    flex: 1 1 auto;
+}
+
+*,
+:after,
+:before {
+    box-sizing: border-box;
+    border: 0 solid;
+}
+
+User Agent Style Sheetaddress,
+article,
+aside,
+div,
+footer,
+header,
+hgroup,
+main,
+nav,
+search,
+section {
+    display: block;
+}
+
+*,
+:after,
+:before {
+    box-sizing: border-box;
+    border: 0 solid;
+}
+
+*,
+:after,
+:before {
+    box-sizing: border-box;
+    border: 0 solid;
+}
+
+._1286nb1601,
+._1286nb1607:hover,
+._1286nb1608:focus,
+._1286nb1609:disabled {
+    color: rgb(var(--otnfkqq));
+}
+
+body {
+    font-family: var(--font-sans);
+    font-size: var(--otnfkq1u);
+    -webkit-font-smoothing: antialiased;
+}
+
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+}
+
+User Agent Style Sheethtml {
+    color: canvastext;
 }

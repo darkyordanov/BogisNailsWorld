@@ -1,4 +1,101 @@
+{% load static %}
+
 {% load static %} 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bogi's Nails World</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/header/header2.css' %}">
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container">
+                <a class="navbar-brand" href="{% url 'index' %}">
+                    <img src="{% static 'media/logos/logo.png' %}" alt="Bogi's Nails World">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'index' %}">About Me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'nails catalog' %}">Gallery</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Price List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'products' %}">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'contacts' %}">Contacts</a>
+                        </li>
+                        {% if request.user.is_authenticated %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Loyalty program</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'booking'%}">Booking</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href={% url 'details account' pk=user.pk%}>
+                                    <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" width="27" height="25" viewBox="0 0 24 24">
+                                        <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"/>
+                                    </svg>                                
+                                </a> 
+                                {% comment %} some selects {% endcomment %}
+                             </li>
+                            
+                            <li class="nav-item">
+                                <form action="{% url 'logout' %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" width="27" height="25" viewBox="0 0 24 24">
+                                        <path fill="currentColor" d="M16 13v-2H7V8l-5 4l5 4v-3z"/><path fill="currentColor" d="M20 3h-9c-1.103 0-2 .897-2 2v4h2V5h9v14h-9v-4H9v4c0 1.103.897 2 2 2h9c1.103 0 2-.897 2-2V5c0-1.103-.897-2-2-2"/>
+                                    </svg></button>
+                                </form>
+                            </li>
+                            
+                            {% comment %} <li class="nav-item">
+                                <a class="nav-link" href="{% url 'details account' pk=user.pk%}">
+                                    {% if  request.user.profile_picture %} 
+                                        <img src="{{ request.user.profile_picture }}" alt="User Profile">
+                                    {% else %}
+                                        <img src="{% static 'media/account_pictures/User_follower_icons_social_media_notification_icon_in_speech_bubbles_vector_illustration.png' %}" alt="Bogi's Nails World">
+                                    {% endif %}
+                                </a>
+                            </li>
+                            {% endcomment %}
+                        {% else %}
+                            <li class="nav-item">
+                                <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+</body>
+</html>
+
+
+
+
+
+
+
+{% comment %}{% load static %} 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,7 +106,6 @@
     <title>Bogi's Nails World</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/header/header.css' %}">
-    {% comment %} <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet"> {% endcomment %}
 </head>
 
 <body class="p-3 m-0 border-0 bd-example m-0 border-0">
@@ -54,9 +150,9 @@
                                 <svg class="user-icon" xmlns="http://www.w3.org/2000/svg" width="27" height="25" viewBox="0 0 24 24">
                                     <path d="M12 2a5 5 0 1 0 5 5 5 5 0 0 0-5-5zm0 8a3 3 0 1 1 3-3 3 3 0 0 1-3 3zm9 11v-1a7 7 0 0 0-7-7h-4a7 7 0 0 0-7 7v1h2v-1a5 5 0 0 1 5-5h4a5 5 0 0 1 5 5v1z"/>
                                 </svg>                                
-                            </a>
+                            </a> {% endcomment %}
                             {% comment %} some selects {% endcomment %}
-                        </li>
+                        {% comment %} </li>
                         
                         <li class="nav-item">
                             <form action="{% url 'logout' %}" method="post">
@@ -69,17 +165,29 @@
 
                     {% else %}
 
-                        <li class="nav-item">
+                    <li class="nav-item">
                             <a href="{% url 'login' %}" class="btn btn-primary">Log in</a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'register' %}" class="btn btn-secondary">Register</a>
-                        </li>
+                        </li>  {% endcomment %}
+{% comment %} 
+                        <div class="_1jf6c6l1 _1286nb12t9 _1286nb18l _1286nb1n _1286nb12u3 _1286nb11w3 _1286nb11h9 _1286nb11gd">
+                            <a href="https://id.freepikcompany.com/v2/log-in?client_id=freepik&amp;lang=en&amp;_gl=1*r9z7xb*_ga*Nzk3MDQzMDQyLjE3MDc0NjU2NDc.*_ga_QWX66025LC*MTcxMDU0NTgwNi4xMi4xLjE3MTA1NDU4MjMuNDMuMC4w*_ga_18B6QPTJPC*MTcxMDU0NTgwNi4xMi4xLjE3MTA1NDU4MjMuNDMuMC4w" 
+                            class="_1q78vgz1r _1286nb12i9 _1286nb1289 _1286nb122x _1286nb12cx _1286nb18f _1286nb11h3 _1q78vgzp _1286nb18l _1286nb12r3 _1286nb1v _1286nb12nl _1286nb17q _1286nb119 _1286nb12nr _1286nb16os _1286nb16ny _1286nb12t9 _1q78vgz11 _1q78vgz17" data-cy="login-button">Log in</a>
+                            <a href="https://id.freepikcompany.com/v2/sign-up?client_id=freepik&amp;lang=en&amp;_gl=1*r9z7xb*_ga*Nzk3MDQzMDQyLjE3MDc0NjU2NDc.*_ga_QWX66025LC*MTcxMDU0NTgwNi4xMi4xLjE3MTA1NDU4MjMuNDMuMC4w*_ga_18B6QPTJPC*MTcxMDU0NTgwNi4xMi4xLjE3MTA1NDU4MjMuNDMuMC4w" 
+                            class="_1q78vgz1r _1286nb12i9 _1286nb1289 _1286nb122x _1286nb12cx _1286nb18f _1286nb14fl _1286nb14gl _1286nb14hl _1286nb14il _1286nb14jr _1286nb14l3 _1286nb14mf _1286nb14nr _1286nb14x3 _1q78vgzp _1286nb18l _1286nb12r3 _1286nb1v _1286nb12nl _1286nb17q _1286nb119 _1286nb12nr _1286nb16os _1286nb16ny _1286nb12t9 _1q78vgz11 _1q78vgz17 _1q78vgz1w" data-cy="signup-button">Sign up</a>
+                            <div id="g_id_onload" data-client_id="705648808057-3chuddbr6oahbebib1uh693k02sgfl30.apps.googleusercontent.com" data-login_uri="https://id-api.freepikcompany.com/v2/login/google-one-tap?client_id=freepik&amp;lang=en" data-callback="onTapCallback"></div>
+                        </div> {% endcomment %}
 
-                    {% endif %}
+                    {% comment %} {% endif %}
 
                 </ul>
             </div>
         </div>
     </nav> 
 </body>
+{% endcomment %} 
+
+
+

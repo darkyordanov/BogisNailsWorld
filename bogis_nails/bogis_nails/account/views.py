@@ -51,8 +51,9 @@ class DetailsAccountView(views.DetailView, auth_mixins.LoginRequiredMixin):
     #     return context
     
 class EditAccountView(views.UpdateView, auth_mixins.LoginRequiredMixin):
-    pass
-
+    template_name = 'account/edit_account.html'
+    queryset = UserModel.objects.all()
+    
 
 class DeleteAccountView(views.DeleteView, auth_mixins.LoginRequiredMixin):
     pass
