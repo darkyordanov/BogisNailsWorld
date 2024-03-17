@@ -18,7 +18,7 @@ class RegisterAccountView(views.CreateView):
     template_name = 'account/register.html'
     
     def get_success_url(self):
-        return reverse_lazy('account', kwargs={
+        return reverse_lazy('details account', kwargs={
             'pk': self.object.pk,
         })
 
@@ -29,11 +29,11 @@ class LoginAccountView(auth_views.LoginView):
     redirect_authenticated_user = True
     
     
-class LogoutAccountView(auth_views.LogoutView, auth_mixins.LoginRequiredMixin):
+class LogoutAccountView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
     next_page = '/'
 
 
-class DetailsAccountView(views.DetailView, auth_mixins.LoginRequiredMixin):
+class DetailsAccountView(auth_mixins.LoginRequiredMixin, views.DetailView):
     # not sure, about details account, because
     # when u are in your profile
     template_name = 'account/details_account.html'
@@ -50,10 +50,10 @@ class DetailsAccountView(views.DetailView, auth_mixins.LoginRequiredMixin):
     #     # You can add additional context data here if needed
     #     return context
     
-class EditAccountView(views.UpdateView, auth_mixins.LoginRequiredMixin):
+class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     template_name = 'account/edit_account.html'
     queryset = UserModel.objects.all()
     
 
-class DeleteAccountView(views.DeleteView, auth_mixins.LoginRequiredMixin):
+class DeleteAccountView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     pass
