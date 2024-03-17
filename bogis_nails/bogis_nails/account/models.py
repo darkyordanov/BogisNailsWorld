@@ -175,12 +175,16 @@ class Profile(models.Model):
     
     profile_picture = models.ImageField(
         upload_to='account_pictures/',
-        
+        default=None,
+        blank=True,
+        null=True,
     )
     
     user = models.OneToOneField(
         AccountUser,
-        on_delete=models.DO_NOTHING,
+        unique=True,
+        editable=False,
+        on_delete=models.CASCADE,
         primary_key=True,
         related_name='profile',
     )

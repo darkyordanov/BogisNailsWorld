@@ -41,6 +41,7 @@ class UserModelAdmin(auth_admin.UserAdmin):
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ('get_user_email', 'birth_date', 'display_profile_picture')
+    readonly_fields = ('user', )
     search_fields = ('user__email', )
     ordering = ('user__email', )
 
