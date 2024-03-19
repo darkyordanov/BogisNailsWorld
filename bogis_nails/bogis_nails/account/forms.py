@@ -3,8 +3,6 @@ from django.contrib.auth import forms as auth_forms, get_user_model
 
 from bogis_nails.account.models import Profile
 
-# from bogis_nails.account.models import Profile
-
 UserModel = get_user_model()
 
 
@@ -31,6 +29,7 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
         
         widgets = {
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
+            'password1': forms.PasswordInput({'placeholder': 'Password'})
             # 'first_name': forms.TextInput(attrs={'placeholder': 'First name'}),
             # 'last_name': forms.TextInput(attrs={'placeholder': 'Last name'}),
             # 'birth_date': forms.DateInput(attrs={'placeholder': 'Birth date'}),
