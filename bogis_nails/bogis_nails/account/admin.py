@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import admin as auth_admin
 
 from bogis_nails.account.forms import \
-    AccountRegisterForm, AccountUserChangeForm
+    AccountRegisterForm, AccountUpdateForm
     
 from bogis_nails.account.models import Profile
 
@@ -16,7 +16,7 @@ class UserModelAdmin(auth_admin.UserAdmin):
     search_fields = ("email",)
     ordering = ("email",)
     
-    form = AccountUserChangeForm
+    form = AccountUpdateForm
     add_form = AccountRegisterForm
     
     fieldsets = (

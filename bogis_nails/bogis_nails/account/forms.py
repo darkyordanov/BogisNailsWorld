@@ -50,3 +50,42 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
 #     age = forms.IntegerField()
 
 #     # Other fields of `Profile`
+
+class AccountUpdateForm(auth_forms.UserChangeForm):
+    birth_date = forms.DateField(required=False)
+    profile_picture = forms.ImageField(required=False)
+    new_password1 = forms.CharField(label="New Password", strip=False, widget=forms.PasswordInput, required=False)
+    new_password2 = forms.CharField(label="Confirm New Password", strip=False, widget=forms.PasswordInput, required=False)
+
+    class Meta:
+        model = UserModel
+        fields = ('email', 'birth_date', 'profile_picture', 'new_password1', 'new_password2')
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        instance = getattr(self, 'instance', None)
+        if instance and instance.pk:
+            self.fields['birth_date'].initial = instance.profile.birth_date
+            self.fields['profile_picture'].initial = instance.profile.profile_picture
+
+            
+    def clean_new_password2(self):
+        new_password1 = self.cleaned_data.get("new_password1")
+        new_password2 = self.cleaned_data.get("new_password2")
+        if new_password1 and new_password2 and new_password1 != new_password2:
+            raise forms.ValidationError("The two password fields didn't match.")
+        return new_password2
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        profile = user.profile
+        profile.birth_date = self.cleaned_data['birth_date']
+        profile.profile_picture = self.cleaned_data['profile_picture']
+        new_password = self.cleaned_data['new_password1']
+        
+        if new_password:
+            user.set_password(new_password)
+        if commit:
+            user.save()
+            profile.save()
+        return user
