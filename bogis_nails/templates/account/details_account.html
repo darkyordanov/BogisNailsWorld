@@ -22,18 +22,16 @@
                         <div class="hidden lg:block">
                             <nav class="woocommerce-MyAccount-navigation lg:mt-12 aos-init aos-animate" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-offset="0" data-aos-duration="500">
                                 <ul class="lg:w-fit">
+                                    <br>
+                                        <a class="text-decoration-none" href="#">
+                                            <i class="fa-light fa-bookmark fa-2x" style="color: #000000; margin-right: 5px;"></i>
+                                            <span class="ml-2" style="font-weight: bold; font-size: 2rem; color: #000000;">Collection</span>
+                                        </a>
                                     <hr>
-                                        <li>
-                                            <a class="" href="#">
-                                                <i class="fa-regular fa-bookmark"></i>
-                                            </a>
-                                        </li>
-                                    <hr>
-                                        <li>
-                                            <a class="" href="#">
-                                                <i class="fa-light fa-cart-shopping"></i>
-                                            </a>
-                                        </li>                            
+                                        <a class="text-decoration-none" href="#">
+                                            <i class="fa-light fa-cart-shopping fa-2xl" style="color: #000000; margin-right: 5px;"></i>
+                                            <span class="ml-2" style="font-weight: bold; font-size: 2rem; color: #000000;">Orders</span>
+                                        </a>
                                     <hr>
                                 </ul> 
                             </nav>
@@ -48,7 +46,7 @@
                                 {% if object.profile.profile_picture %}
                                     <img src="{{ object.profile.profile_picture.url }}" class="img-fluid" alt="{{ object.username }}">
                                 {% else %}
-                                    <h3 class="no-image-placeholder">No Profile Image Available</h3>
+                                    <h3 class="no-image-placeholder"><strong>No Profile Image Available</strong></h3>
                                 {% endif %}
                             </div>
                         

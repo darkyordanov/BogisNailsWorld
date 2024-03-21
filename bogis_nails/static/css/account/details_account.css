@@ -36,3 +36,7 @@ body {
 .text-left {
     text-align: left;
 }
+
+.text-decoration-none {
+    text-decoration: none !important;
+}

@@ -1,53 +1,17 @@
 {% extends "base.html" %}
 
+{% load static %}
+
 {% block main_content %}
-
-<body class="p-3 m-0 border-0 bd-example m-0 border-0">
-    <!-- Pofile Section -->
-    <main class="container mt-4">
-        <!-- Profile Information Section -->
-        <section class="section">
-        <h1 class="section-title">Profile Details</h1>
-        <form action="{% url 'edit account' pk=object.pk %}" method="post">
-            {{ form.as_p }}
-            {% csrf_token %}
-            <button type="submit" class="btn btn-primary">Save</button>
-            {% comment %} <div class="row">
-                <div class="row">
-                    <div class="col-md-6 mb-4">
-                        {% if object.profile_picture %}
-                            <img src="{{ object.profile_picture.url }}" class="img-fluid" alt="{{ object.username }}">
-                        {% else %}
-                            <div class="no-image-placeholder">No Profile Image Available</div>
-                        {% endif %}
-                    </div>
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <p class="card-text">{{ object.first_name }}</p>
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">{{ object.last_name }}</p>
-                            </div>
-                            <div class="card-body">
-                                <h2 class="card-text">{{ object.email }}</h2>
-                            </div>
-                            <div class="card-body">
-                                <h2 class="card-text">{{ object.birth_date }}</h2>
-                            </div>
-
-                            <div class="card-footer">
-                                <div class="buttons">
-                                    <a href="{% url 'edit account' pk=object.pk %}" class="btn btn-primary">Edit</a>
-                                    <a href="#" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div> {% endcomment %}
-
-        </form>
-</section>
-
+    <link rel="stylesheet" href="{% static 'css/account/details_account.css' %}">
+    <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+        <main class="container mt-4">
+            <section class="section">
+            <h1 class="section-title">Profile Details</h1>
+            <form action="{% url 'edit account' pk=object.pk %}" method="post">
+                {{ form.as_p }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary">Save</button>
+            </form>
+    </section>
 {% endblock %}
