@@ -1,0 +1,38 @@
+/* details_account.css */
+body {
+    background-image: url('/media/backgrounds/profile_details3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Adjustments to profile container */
+.profile-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile picture */
+.profile-picture {
+    max-width: 100%;
+    border-radius: 50%; /* Make the profile picture circular */
+}
+
+/* Profile information */
+.profile-info {
+    margin-top: 20px;
+}
+
+/* Edit and delete buttons */
+.profile-buttons {
+    margin-top: 20px;
+}
+
+.profile-buttons .btn {
+    margin-right: 10px; /* Add space between buttons */
+}
+
+.text-left {
+    text-align: left;
+}

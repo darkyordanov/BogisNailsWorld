@@ -59,7 +59,7 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
 
     class Meta:
         model = UserModel
-        fields = ('email', 'birth_date', 'profile_picture', 'new_password1', 'new_password2')
+        fields = ('email', 'first_name', 'last_name', 'birth_date', 'profile_picture', 'new_password1', 'new_password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
