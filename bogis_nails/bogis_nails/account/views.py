@@ -24,26 +24,15 @@ class LoginAccountView(auth_views.LoginView):
     success_url = reverse_lazy('index')
     redirect_authenticated_user = True
     
+    
 class LogoutAccountView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
     next_page = '/'
 
 
 class DetailsAccountView(auth_mixins.LoginRequiredMixin, UserOwnsProfileMixin, views.DetailView):
-    # not sure, about details account, because
-    # when u are in your profile
     template_name = 'account/details_account.html'
     queryset = UserModel.objects.all()
-    # context_object_name = 'profile'  # Define the context object name
     
-    # def get_object(self, queryset=None):
-    #     # Return the current logged-in user's profile
-    #     return self.request.user
-
-    
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     # You can add additional context data here if needed
-    #     return context
     
 class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     template_name = 'account/details_edit_account.html'
@@ -59,6 +48,7 @@ class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
         return reverse_lazy('details account', kwargs={
             'pk': self.object.pk
         })
+
 
 class DeleteAccountView(auth_mixins.LoginRequiredMixin, views.DeleteView):
     pass

@@ -43,13 +43,7 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
             Profile.objects.create(user=user)
             
         return user
-
-
-# Update form when user is success register to update her/his profile information later
-# class AccountUpdateForm(auth_forms.UserCreationForm):
-#     age = forms.IntegerField()
-
-#     # Other fields of `Profile`
+    
 
 class AccountUpdateForm(auth_forms.UserChangeForm):
     birth_date = forms.DateField(required=False)
@@ -80,12 +74,30 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
         user = super().save(commit=False)
         profile = user.profile
         profile.birth_date = self.cleaned_data['birth_date']
-        profile.profile_picture = self.cleaned_data['profile_picture']
+
+        if 'profile_picture' in self.cleaned_data:
+            profile.profile_picture = self.cleaned_data['profile_picture']
+
         new_password = self.cleaned_data['new_password1']
-        
+
         if new_password:
             user.set_password(new_password)
+        
         if commit:
             user.save()
             profile.save()
         return user
+
+    # def save(self, commit=True):
+    #     user = super().save(commit=False)
+    #     profile = user.profile
+    #     profile.birth_date = self.cleaned_data['birth_date']
+    #     profile.profile_picture = self.cleaned_data['profile_picture']
+    #     new_password = self.cleaned_data['new_password1']
+        
+    #     if new_password:
+    #         user.set_password(new_password)
+    #     if commit:
+    #         user.save()
+    #         profile.save()
+    #     return user

@@ -95,3 +95,22 @@ main {
     max-height: 50px; /* Set the maximum height of the logo */
     margin-right: 10px; /* Optional: Add margin to the right of the logo */
 }
+
+/* Add this CSS to make the icons have the same color as other buttons */
+.navbar-nav .nav-link .fa-light, 
+.navbar-nav .nav-link .user-icon {
+    color: #f3b6b6; /* Change icon color to match other buttons */
+    cursor: pointer; /* Change cursor to pointer when hovering over icon */
+}
+
+/* Add this CSS to handle the hover effect on the icons */
+.navbar-nav .nav-link .fa-light:hover, 
+.navbar-nav .nav-link .user-icon:hover {
+    color: #56887d; /* Change color when hovering over icon */
+}
+
+/* Add this CSS to handle the active state of the icons */
+.navbar-nav .nav-link .fa-light:active, 
+.navbar-nav .nav-link .user-icon:active {
+    color: #f3b6b6; /* Change color when icon is clicked */
+}
