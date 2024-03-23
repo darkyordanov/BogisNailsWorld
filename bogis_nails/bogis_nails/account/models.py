@@ -96,10 +96,24 @@ class Profile(models.Model):
     def __str__(self):
         return str(self.user.email)
     
+    
+class Image(models.Model):
+    image = models.ImageField(
+        upload_to='collection_images/',
+        blank=True,
+        null=True,
+    )
+
 
 class ProfileCollection(models.Model):
-    title = models.CharField(
-        max_length=30,
-        blank=True,
-        null=True, 
+    image = models.ManyToManyField(
+        Image,
+        related_name='collections',
+    )
+    
+    user = models.OneToOneField(
+        AccountUser,
+        primary_key=True,
+        on_delete=models.DO_NOTHING,
+        related_name='collection',
     )
