@@ -10,6 +10,145 @@
         background-position: center;
         background-repeat: no-repeat;
     }
+
+    .bookmark-button {
+        display: none;
+        z-index: 10; /* Adjust this value if necessary */
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mt-4 mb-3">Gallery</h2>
+        </div>
+
+        {% if request.user.is_authenticated %}
+            <div class="col-md-6 text-end">
+                <a href="{% url 'add nails design' %}" class="btn btn-primary mt-4 mb-3">Add Nails</a>
+            </div>
+        {% endif %}
+        
+    </div>
+    
+    <!-- Search Form -->
+    {% if request.user.is_authenticated %}
+        <form method="GET" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="color" class="form-select">
+                        <option value="" {% if not request.GET.color %}selected{% endif %}>All Colors</option>
+                        {% for color in colors %}
+                            <option value="{{ color }}" {% if request.GET.color == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="size" class="form-select">
+                        <option value="" {% if not request.GET.size %}selected{% endif %}>All Shapes</option>
+                        {% for size in sizes %}
+                            <option value="{{ size }}" {% if request.GET.size == size %}selected{% endif %}>{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+    
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for nail_design in nail_designs %}
+        <div class="col">
+            <div class="card position-relative">
+                <img src="{{ nail_design.image.url }}" class="card-img-top nail-image" alt="{{ nail_design.title }}">
+                
+                <!-- Bookmark button -->
+                <div class="bookmark-button position-absolute bottom-0 start-50 translate-middle-x">
+                    <a class="text-decoration-none" href="#">
+                        <i class="fa-light fa-bookmark fa-2x" style="color: #000000; margin-right: 5px;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Lightbox Overlay -->
+<div id="lightbox-overlay">
+    <div id="lightbox-container">
+        <img id="lightbox-image" src="#" alt="Enlarged Image">
+        <span id="close-lightbox">&times;</span>
+    </div>
+</div>
+
+<script>
+    const nailImages = document.querySelectorAll('.nail-image');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const lightboxContainer = document.getElementById('lightbox-container');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const closeLightbox = document.getElementById('close-lightbox');
+
+    nailImages.forEach(image => {
+        const bookmarkButton = image.closest('.card').querySelector('.bookmark-button');
+
+        image.addEventListener('click', () => {
+            const imageUrl = image.getAttribute('src');
+            lightboxImage.setAttribute('src', imageUrl);
+            lightboxOverlay.style.display = 'flex';
+            lightboxContainer.style.width = '50%'; // Set lightbox width
+            lightboxImage.style.width = '100%'; // Set image width
+        });
+
+        image.addEventListener('mouseenter', () => {
+            image.style.transform = 'scale(1.07)';
+            bookmarkButton.style.display = 'block';  // Show bookmark button
+        });
+
+        image.addEventListener('mouseleave', () => {
+            image.style.transform = 'scale(1)';
+            bookmarkButton.style.display = 'none';   // Hide bookmark button
+        });
+    });
+
+    // Close lightbox
+    lightboxOverlay.addEventListener('click', function (event) {
+        if (event.target === lightboxOverlay || event.target === closeLightbox) {
+            lightboxOverlay.style.display = 'none';
+            lightboxContainer.style.width = 'auto'; // Reset lightbox width
+            lightboxImage.style.width = 'auto'; // Reset image width
+        }
+    });
+</script>
+
+<style>
+    /* Lightbox Overlay Styles */
+
+
+    {% endblock %}
+
+
+
+
+
+
+
+
+{% comment %} Witout save button on photo
+{% extends "base.html" %}
+
+{% block main_content %}
+
+<style>
+    /* Background image */
+    body {
+        background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 </style>
 
 <div class="container">
@@ -155,4 +294,4 @@
     }
 </style>
 
-{% endblock %}
+{% endblock %} {% endcomment %}

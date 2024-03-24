@@ -5,7 +5,7 @@
 {% block main_content %}
     <link rel="stylesheet" href="{% static 'css/account/details_account.css' %}">
      {% comment %} <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> {% endcomment %}
-    <link rel="stylesheet" href="https://kit.fontawesome.com/367278d2a4.css">
+    {% comment %} <link rel="stylesheet" href="https://kit.fontawesome.com/367278d2a4.css"> {% endcomment %}
 
     
     <body class="p-3 m-0 border-0 bd-example m-0 border-0">
@@ -48,7 +48,6 @@
                                 {% else %}
                                     <h3 class="no-image-placeholder"><strong>No Profile Image Available</strong></h3>
                                     <img src="/media/account_picture/default_account_picture.jpg" class="img-fluid" alt="{{ object.username }}">
-
                                 {% endif %}
                             </div>
                         

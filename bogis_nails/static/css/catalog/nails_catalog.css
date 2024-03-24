@@ -1,3 +1,8 @@
+.bookmark-button {
+    display: none;
+    z-index: 10; /* Adjust this value if necessary */
+}
+
 /* .catalog {
     display: flex;
     flex-wrap: wrap;
