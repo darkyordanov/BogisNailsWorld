@@ -29,11 +29,15 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
         
         widgets = {
             'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-            'password1': forms.PasswordInput({'placeholder': 'Password'})
-            # 'first_name': forms.TextInput(attrs={'placeholder': 'First name'}),
-            # 'last_name': forms.TextInput(attrs={'placeholder': 'Last name'}),
-            # 'birth_date': forms.DateInput(attrs={'placeholder': 'Birth date'}),
+            'password1': forms.PasswordInput({'placeholder': 'Password'}),
+            'password2': forms.PasswordInput({'placeholder': 'Repeat password'}),
         }
+        
+        # doesn't work
+        # help_texts = {
+        #     'password1': 'Password',
+        #     'password2': 'Repeat password',
+        # }
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -41,7 +45,7 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
         if commit:
             user.save()
             Profile.objects.create(user=user)
-            
+
         return user
     
 
@@ -87,17 +91,3 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
             user.save()
             profile.save()
         return user
-
-    # def save(self, commit=True):
-    #     user = super().save(commit=False)
-    #     profile = user.profile
-    #     profile.birth_date = self.cleaned_data['birth_date']
-    #     profile.profile_picture = self.cleaned_data['profile_picture']
-    #     new_password = self.cleaned_data['new_password1']
-        
-    #     if new_password:
-    #         user.set_password(new_password)
-    #     if commit:
-    #         user.save()
-    #         profile.save()
-    #     return user

@@ -97,23 +97,34 @@ class Profile(models.Model):
         return str(self.user.email)
     
     
-class Image(models.Model):
-    image = models.ImageField(
-        upload_to='collection_images/',
-        blank=True,
-        null=True,
-    )
-
-
-class ProfileCollection(models.Model):
-    image = models.ManyToManyField(
-        Image,
-        related_name='collections',
+class Bookmarks(models.Model):
+    image_url = models.URLField()
+    
+    user = models.ForeignKey(
+        AccountUser,
+        on_delete=models.CASCADE
     )
     
-    user = models.OneToOneField(
-        AccountUser,
-        primary_key=True,
-        on_delete=models.DO_NOTHING,
-        related_name='collection',
-    )
+    def __str__(self):
+        return self.user.email
+    
+# class Image(models.Model):
+#     image = models.ImageField(
+#         upload_to='collection_images/',
+#         blank=True,
+#         null=True,
+#     )
+
+
+# class ProfileCollection(models.Model):
+#     image = models.ManyToManyField(
+#         Image,
+#         related_name='collections',
+#     )
+    
+#     user = models.OneToOneField(
+#         AccountUser,
+#         primary_key=True,
+#         on_delete=models.DO_NOTHING,
+#         related_name='collection',
+#     )

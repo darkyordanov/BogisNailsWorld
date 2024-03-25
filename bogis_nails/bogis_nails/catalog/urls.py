@@ -12,4 +12,6 @@ urlpatterns = (
         path('edit_nails/', EditNailsDesignView.as_view(), name='edit nails'),
         path('delete_nails/', DeleteNailsView.as_view(), name='delete nails'),
     ])),
+    
+    # path()
 )

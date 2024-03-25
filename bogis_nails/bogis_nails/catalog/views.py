@@ -1,11 +1,13 @@
 from django.db.models.base import Model as Model
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import DeleteView, CreateView, UpdateView
+from django.views import generic as views
 
 from django.contrib.auth import mixins as auth_mixin
 from django.contrib.auth.decorators import login_required
 
+from bogis_nails.account.models import Bookmarks
 from bogis_nails.catalog.forms import \
     NailDesignCreateForm, NailDesignEditForm
     
@@ -50,7 +52,7 @@ def nails_details(request, pk):
     return render(request, 'catalog/nails_details.html', context)
 
 
-class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, CreateView):
+class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, views.CreateView):
     model = NailDesign
     form_class = NailDesignCreateForm
     template_name = 'catalog/add_nails_design.html'
@@ -61,7 +63,7 @@ class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, CreateView):
         })
 
 
-class EditNailsDesignView(auth_mixin.LoginRequiredMixin, UpdateView):
+class EditNailsDesignView(auth_mixin.LoginRequiredMixin, views.UpdateView):
     model = NailDesign
     form_class = NailDesignEditForm
     template_name = 'catalog/edit_nails.html'
@@ -77,7 +79,7 @@ class EditNailsDesignView(auth_mixin.LoginRequiredMixin, UpdateView):
         })
     
 
-class DeleteNailsView(auth_mixin.LoginRequiredMixin, DeleteView):
+class DeleteNailsView(auth_mixin.LoginRequiredMixin, views.DeleteView):
     model = NailDesign
     template_name = "catalog/delete_nails.html"
     # if I uncomment the form_class , the delete func doesn't work success
@@ -94,3 +96,44 @@ class DeleteNailsView(auth_mixin.LoginRequiredMixin, DeleteView):
         self.object = self.get_object()
         self.object.delete()
         return super().delete(request, *args, **kwargs)
+
+
+@login_required
+def save_nails_design(request):
+    nail_designs = NailDesign.objects.all()
+    
+    if request.method == 'POST':
+        image_url = request.POST.get('image_url')
+        
+        if 'bookmarked_images' not in request.session:
+            request.session['bookmarked_images'] = []
+            
+        if image_url and image_url not in request.session['bookmarked_images']:
+            request.session['bookmarked_images'].append(image_url)
+            request.session.modified = True
+            
+        return JsonResponse({'success': True})
+    
+    context = {
+        'nail_designs': nail_designs,
+    }
+
+    return render(request, 'catalog/nails_catalog.html', context)
+    
+
+@login_required
+def remove_nails_design(request):
+    nail_designs = NailDesign.objects.all()
+    
+    if request.method == 'POST':
+        image_url = request.POST.get('image_url')
+        
+        if 'bookmarked_images' in request.session \
+            and \
+        image_url in request.session['bookmarked_images']:
+            request.session['bookmarked_images'].remove(image_url)
+            request.session.modified = True
+            
+        return JsonResponse({'success': True})
+    
+    return JsonResponse({'success': False})
