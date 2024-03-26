@@ -61,7 +61,7 @@
                             <!-- Edit and delete buttons -->
                             <div class="profile-buttons">
                                 <a href="{% url 'edit account' pk=object.pk %}" class="btn btn-primary">Edit</a>
-                                <a href="#" class="btn btn-danger">Delete</a>
+                                <a href="{% url 'delete account' pk=object.pk %}" class="btn btn-danger">Delete</a>
                             </div>
                         </div>
                     </div>

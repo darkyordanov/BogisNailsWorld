@@ -1,3 +1,5 @@
+from django.db.models.base import Model as Model
+from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views
@@ -35,7 +37,7 @@ class DetailsAccountView(auth_mixins.LoginRequiredMixin, UserOwnsProfileMixin, v
     
     
 class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
-    template_name = 'account/details_edit_account.html'
+    template_name = 'account/edit_account.html'
     queryset = UserModel.objects.all()
     form_class = AccountUpdateForm
     
@@ -51,4 +53,10 @@ class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
 
 
 class DeleteAccountView(auth_mixins.LoginRequiredMixin, views.DeleteView):
-    pass
+    template_name = 'account/delete_account.html'
+    queryset = UserModel.objects.all()
+    success_url = reverse_lazy('index')
+    
+    def get_object(self, queryset=None):
+        return self.request.user
+    

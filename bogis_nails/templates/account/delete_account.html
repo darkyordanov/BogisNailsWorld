@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+{% block main_content %}
+    <link rel="stylesheet" href="{% static 'css/account/details_account.css' %}">
+    <body class="p-3 m-0 border-0 bd-example m-0 border-0">
+        <main class="container mt-4">
+            <section class="section">
+            <h1 class="section-title">Are you sure you want to delete your profile?</h1>
+            <hr>
+
+            <form action="{% url 'delete account' pk=object.pk %} "method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Confirm Delete</button>
+            </form>
+            
+            <a href="{% url 'details account' pk=object.pk %}" class="btn btn-primary">Cancel</a>
+    </section>
+{% endblock %}
