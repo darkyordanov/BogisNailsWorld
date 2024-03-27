@@ -108,6 +108,7 @@ class Bookmarks(models.Model):
     def __str__(self):
         return self.user.email
     
+    
 # class Image(models.Model):
 #     image = models.ImageField(
 #         upload_to='collection_images/',

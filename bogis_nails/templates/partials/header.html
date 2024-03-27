@@ -15,8 +15,8 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 {% comment %} <a class="navbar-brand" href="{% url 'index' %}">
-                    <img src="{% static 'logos/7973867.jpg' %}" alt="Bogi's Nails World"></img>
-                </a> {% endcomment %}
+                    <img src="{% static 'media/logos/7973867.jpg' %}" alt="Bogi's Nails World"></img>
+                </a>  {% endcomment %}
                 <a class="navbar-brand" href="{% url 'index' %}" style="color: #084041;"><strong>Bogi's Nails Art</strong></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -31,7 +31,7 @@
                             <a class="nav-link" href="{% url 'nails catalog' %}">Gallery</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Price List</a>
+                            <a class="nav-link" href="{% url 'price list' %}">Price List</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'products' %}">Products</a>
@@ -42,7 +42,7 @@
 
                         {% if request.user.is_authenticated %}
                             <li class="nav-item">
-                                <a class="nav-link" href="#">Loyalty program</a>
+                                <a class="nav-link" href="#">Loyalty Program</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'booking'%}">Booking</a>
