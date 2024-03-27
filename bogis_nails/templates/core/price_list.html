@@ -4,14 +4,23 @@
 
 {% block main_content %}
 
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h2 class="mt-4 mb-3">Price List</h2>
+<body class="p-3 m-0 border-0 bd-example m-0 border-0">
+    <!-- Content Section -->
+    <main class="container mt-4">
+        <!-- Contact Information Section -->
+        <section class="section">
+            <div class="container">
+                <div class="row">
+                    
+                    {% comment %} <img src="{% static 'media/price_list/nails_price_list.png' %}" alt="Nails Price List" class="img-fluid"> {% endcomment %}
+                    <img src="{% static 'media/price_list/nails_price_list.png' %}" alt="Nails Price List" class="img-fluid">
+                    
+                </div>
             </div>
-            <img src="{% static 'media/price_list/nails_price_list.png' %}" alt="Nails Price List" class="img-fluid">
-        </div>
-    </div>
+        </section>
+    </main>
+</body>
 
 {% endblock %}
+
 
