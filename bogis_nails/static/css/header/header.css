@@ -1,5 +1,3 @@
-/* styles.css */
-
 /* Background image */
 body, .navbar {
     background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
@@ -10,45 +8,48 @@ body, .navbar {
 
 /* Set text color to #084041 when hovering over non-button links */
 .navbar-nav .nav-link:not(.btn):hover {
-    color: #b76e79; /* Change text color to #084041 */
+    color: #b76e79;
 }
 
 /* Reset background color when hovering over non-button links */
 .navbar-nav .nav-link:not(.btn):hover {
-    background-color: transparent; /* Reset background color */
+    background-color: transparent;
 }
 
+/* Logo styles */
+.navbar-brand img {
+    max-width: 150px;
+    height: auto;
+}
+
+/* Styles from header.css */
 body {
     background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space-contacts.jpg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    margin-bottom: 60px; /* Adjust margin to accommodate footer height */
+    margin-bottom: 60px;
 }
 
-/* Style for main content */
 main {
-    min-height: calc(100vh - 60px); /* Subtracting footer height */
+    min-height: calc(100vh - 60px);
 }
 
-/* Center align text */
 .text-center {
     text-align: center;
 }
 
 .section {
     padding: 200px;
-    background-color: transparent; /* Set the background to transparent */
+    background-color: transparent;
     border-radius: 20px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-/* Add margin-bottom to sections */
 .section:not(:last-child) {
     margin-bottom: 20px;
 }
 
-/* Style buttons */
 .btn-primary {
     color: #f3b6b6;
     background-color: #084041;
@@ -63,7 +64,7 @@ main {
 }
 
 .btn-primary:active {
-    background-color: #f3b6b6; /* Change background color when button is clicked */
+    background-color: #f3b6b6;
 }
 
 .btn-secondary {
@@ -90,27 +91,47 @@ main {
     text-align: center;
 }
 
-/* Logo styles */
-.navbar-brand img {
-    max-height: 50px; /* Set the maximum height of the logo */
-    margin-right: 10px; /* Optional: Add margin to the right of the logo */
+/* Additional styles from header2.css */
+._1286nb12u3 {
+    justify-content: flex-end;
+}
+
+._1286nb12t9 {
+    align-items: center;
+}
+
+._1286nb11w3 {
+    margin-left: .9375rem;
+}
+
+._1286nb11h9 {
+    margin-right: .625rem;
+}
+
+._1286nb18l {
+    display: flex;
+}
+
+._1286nb1n {
+    flex: 1 1 auto;
 }
 
 /* Add this CSS to make the icons have the same color as other buttons */
 .navbar-nav .nav-link .fa-light, 
 .navbar-nav .nav-link .user-icon {
-    color: #f3b6b6; /* Change icon color to match other buttons */
-    cursor: pointer; /* Change cursor to pointer when hovering over icon */
+    color: #f3b6b6;
+    cursor: pointer;
 }
 
 /* Add this CSS to handle the hover effect on the icons */
 .navbar-nav .nav-link .fa-light:hover, 
 .navbar-nav .nav-link .user-icon:hover {
-    color: #56887d; /* Change color when hovering over icon */
+    color: #56887d;
 }
 
 /* Add this CSS to handle the active state of the icons */
 .navbar-nav .nav-link .fa-light:active, 
 .navbar-nav .nav-link .user-icon:active {
-    color: #f3b6b6; /* Change color when icon is clicked */
+    color: #f3b6b6;
 }
+
