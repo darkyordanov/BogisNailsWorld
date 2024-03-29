@@ -9,15 +9,25 @@
             <div class="col-md-6 offset-md-3">
                 <h1 class="text-center">Register</h1>
                 <hr>
-                <form method="post" enctype="multipart/form-data">
                 {% comment %} <form action="{% url 'account' pk=object.pk%}?/next={{ next }}" method="post"> {% endcomment %}
                 <form action="{% url 'register'%}" method="post" autocomplete="off">
                     {% csrf_token %}
-                
+                    
                     <div class="mb-3">
-                        {% comment %} <label for="title" class="form-label">Username</label> {% endcomment %}
-                        {{ form.as_p }}
+                        <label class="inline-block mb-2"><strong>Email</strong></label><br>
+                        {{ form.email }}
                     </div>
+                    
+                    <div class="mb-3">
+                        <label class="inline-block mb-2"><strong>Password</strong></label><br>
+                        {{ form.password1 }}
+                    </div>
+                    
+                    <div class="mb-3">
+                        <label class="inline-block mb-2"><strong>Repeat password</strong></label><br>
+                        {{ form.password2 }}
+                    </div>
+                
                     
                     <button type="submit" class="btn btn-primary">Register</button>
                     <br></br>
@@ -28,3 +38,37 @@
     </section>
 </main>
 {% endblock %}
+
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block main_content %}
+
+<main class="container mt-4">
+    <!-- Register Section -->
+    <section class="section">
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <h1 class="text-center">Register</h1>
+                <hr>
+                <form method="post" enctype="multipart/form-data">
+                {% comment %} <form action="{% url 'account' pk=object.pk%}?/next={{ next }}" method="post"> {% endcomment %}
+               {% comment %} <form action="{% url 'register'%}" method="post" autocomplete="off">
+                    {% csrf_token %}
+                
+                    <div class="mb-3">
+                        {% comment %} <label for="title" class="form-label">Username</label> {% endcomment %}
+                        {% comment %}{{ form.as_p }}
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">Register</button>
+                    <br></br>
+                        Already have an account?   <a href="{% url 'login' %}">Log in</a>
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %} {% endcomment %}
+

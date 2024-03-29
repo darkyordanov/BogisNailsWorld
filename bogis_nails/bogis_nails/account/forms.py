@@ -27,17 +27,23 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
         model = UserModel
         fields = ('email', 'password1', 'password2')
         
-        widgets = {
-            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-            'password1': forms.PasswordInput({'placeholder': 'Password'}),
-            'password2': forms.PasswordInput({'placeholder': 'Repeat password'}),
-        }
-        
-        # doesn't work
-        # help_texts = {
-        #     'password1': 'Password',
-        #     'password2': 'Repeat password',
+        # widgets = {
+        #     'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
+        #     'password1': forms.PasswordInput({'placeholder': 'Password'}),
+        #     'password2': forms.PasswordInput({'placeholder': 'Repeat password'}),
         # }
+        
+    email = forms.CharField(widget=forms.EmailInput(attrs={
+        'placeholder': 'Your email address',
+    }))
+    
+    password1 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Your password',
+    }))
+    
+    password2 = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Repeat password',
+    }))
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -47,6 +53,16 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
             Profile.objects.create(user=user)
 
         return user
+    
+
+class AccountLoginForm(auth_forms.AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={
+        'placeholder': 'Your email address',
+    }))
+    
+    password = forms.CharField(widget=forms.PasswordInput(attrs={
+        'placeholder': 'Your password',
+    }))
     
 
 class AccountUpdateForm(auth_forms.UserChangeForm):

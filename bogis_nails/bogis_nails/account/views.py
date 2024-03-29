@@ -5,8 +5,10 @@ from django.views import generic as views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth import mixins as auth_mixins
+from django.contrib.auth import login as auth_login
 
-from bogis_nails.account.forms import AccountRegisterForm, AccountUpdateForm
+from bogis_nails.account.forms import \
+    AccountLoginForm, AccountRegisterForm, AccountUpdateForm
 from bogis_nails.common.user_owns_profile_mixin import UserOwnsProfileMixin
 
 UserModel = get_user_model()
@@ -26,6 +28,12 @@ class LoginAccountView(auth_views.LoginView):
     success_url = reverse_lazy('index')
     redirect_authenticated_user = True
     
+    authentication_form = AccountLoginForm
+    
+    # def form_valid(self, form):
+    #     auth_login(self.request, form.get_user())
+    #     return super().form_valid(form)
+    
     
 class LogoutAccountView(auth_mixins.LoginRequiredMixin, auth_views.LogoutView):
     next_page = '/'
@@ -40,6 +48,8 @@ class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     template_name = 'account/edit_account.html'
     queryset = UserModel.objects.all()
     form_class = AccountUpdateForm
+    # fields = ("first_name", "last_name", "date_of_birth", "profile_picture")
+
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

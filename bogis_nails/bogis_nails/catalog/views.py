@@ -137,3 +137,6 @@ def remove_nails_design(request):
         return JsonResponse({'success': True})
     
     return JsonResponse({'success': False})
+
+
+# class SomeApi(views.)

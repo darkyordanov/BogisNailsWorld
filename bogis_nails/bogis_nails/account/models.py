@@ -14,7 +14,7 @@ class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         unique=True,
         error_messages={
             "unique": _("A user with that email already exists."),
-        }
+        },
     )
         
     first_name = models.CharField(

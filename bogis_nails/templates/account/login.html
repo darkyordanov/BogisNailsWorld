@@ -12,8 +12,17 @@
                                         
                     <form action="{% url 'login' %}?next={{ next }}" method="post">
                         {% csrf_token %}
-                        <div class="mb-3">
+                        {% comment %} <div class="mb-3">
                             {{ form.as_p }}
+                        </div> {% endcomment %}
+                        <div class="mb-3">
+                            <label class="inline-block mb-2"><strong>Email</strong></label><br>
+                            {{ form.username }}
+                        </div>
+            
+                        <div class="mb-3">
+                            <label class="inline-block mb-2"><strong>Password</strong></label><br>
+                            {{ form.password }}
                         </div>
                     
                         <button type="submit" class="btn btn-primary">Log in</button>
@@ -27,3 +36,4 @@
         </section>
     </main>
 {% endblock %}
+
