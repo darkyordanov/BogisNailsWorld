@@ -12,7 +12,7 @@ class ProductsView(ListView):
     template_name = 'product/products.html'
     
 
-class DetailsProductView(auth_mixin.LoginRequiredMixin, DetailView):
+class DetailsProductView(DetailView):
     queryset = Product.objects.all()
     template_name = 'product/details_product.html'
     

@@ -32,11 +32,12 @@
                         <p class="card-text">{{ object.description }}</p>
                     </div>
                     <div class="card-footer">
-                        {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
-                        <div class="buttons">
-                            <a href="{% url 'edit product' pk=object.pk %}" class="btn btn-primary">Edit</a>
-                            <a href="{% url 'delete product' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
-                        </div>
+                        {% if request.user.is_authenticated %} 
+                            <div class="buttons">
+                                <a href="{% url 'edit product' pk=object.pk %}" class="btn btn-primary">Edit</a>
+                                <a href="{% url 'delete product' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
+                            </div>
+                        {% endif %}
                     </div>
                 </div>
             </div>
