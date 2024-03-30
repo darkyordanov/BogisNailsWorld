@@ -1,7 +1,8 @@
 from django.urls import include, path
 
 from bogis_nails.account.views import \
-    RegisterAccountView, LoginAccountView, LogoutAccountView, DetailsAccountView, EditAccountView, DeleteAccountView
+    RegisterAccountView, LoginAccountView, LogoutAccountView, \
+    DetailsAccountView, EditAccountView, DeleteAccountView
 
 urlpatterns = (
     path('register/', RegisterAccountView.as_view(), name='register'),
