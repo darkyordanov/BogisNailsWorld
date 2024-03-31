@@ -8,6 +8,8 @@
         <main class="container mt-4">
             <section class="section">
             <h1 class="section-title">Edit Profile</h1>
+            <hr>
+
             <form action="{% url 'edit account' pk=object.pk %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 
@@ -51,7 +53,6 @@
                     {% endif %}
                 </div>
             
-                <!-- Edit and delete buttons -->
                 <div class="profile-buttons">
                     <button type="submit" class="btn btn-primary">Save</button>
                     <a href="{% url 'delete account' pk=object.pk %}" class="btn btn-danger">Delete</a>
