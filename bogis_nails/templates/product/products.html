@@ -32,11 +32,7 @@
                     <div class="card-body">
                         <a href="{% url 'details product' pk=product.pk %}" class="btn link">
                             <h5 class="card-title"><strong>{{ product.title }}</strong></h5>
-                        </a>
-                        <form method="post" action="{% url 'add to cart' pk=product.pk %}">
-                            {% csrf_token %}
-                            <input type="submit" value="Add to Cart" class="btn btn-success">
-                        </form>
+                        </a>                        
                     </div>
                     <div class="card-footer">
                         <p class="price">Price: {{ product.price }}</p>

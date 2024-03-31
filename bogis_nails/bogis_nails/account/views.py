@@ -44,6 +44,15 @@ class DetailsAccountView(auth_mixins.LoginRequiredMixin, UserOwnsProfileMixin, v
     queryset = UserModel.objects.all()
     
     
+# class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
+#     template_name = 'account/edit_account.html'
+#     queryset = UserModel.objects.all()
+#     form_class = AccountUpdateForm
+#     # fields = ('email', 'first_name', 'last_name', 'birth_date', 'profile_picture')
+
+#     def get_success_url(self):
+#         return reverse_lazy('details account', kwargs={'pk': self.object.pk})
+
 class EditAccountView(auth_mixins.LoginRequiredMixin, views.UpdateView):
     template_name = 'account/edit_account.html'
     queryset = UserModel.objects.all()

@@ -12,5 +12,5 @@ urlpatterns = (
         path('edit_products/', EditProductView.as_view(), name='edit product'),
         path('delete_product/', DeleteProductView.as_view(), name='delete product'),
     ])),
-    path('add-to-cart/<int:pk>/', views.add_to_cart, name='add to cart'),
+    # path('add-to-cart/<int:pk>/', add_to_cart, name='add to cart'),
 )

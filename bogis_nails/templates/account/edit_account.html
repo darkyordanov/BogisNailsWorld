@@ -7,10 +7,50 @@
     <body class="p-3 m-0 border-0 bd-example m-0 border-0">
         <main class="container mt-4">
             <section class="section">
-            <h1 class="section-title">Profile Details</h1>
-            <form action="{% url 'edit account' pk=object.pk %}" method="post">
-                {{ form.as_p }}
+            <h1 class="section-title">Edit Profile</h1>
+            <form action="{% url 'edit account' pk=object.pk %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger">
+                        <ul>
+                            {% for field, errors in form.errors.items %}
+                                {% for error in errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endif %}
+
+                <div class="mb-3">
+                    <label for="id_email" class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" id="id_email" value="{{ object.email }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_first_name" class="form-label">First Name</label>
+                    <input type="text" name="first_name" class="form-control" id="id_first_name" value="{{ object.first_name }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_last_name" class="form-label">Last Name</label>
+                    <input type="text" name="last_name" class="form-control" id="id_last_name" value="{{ object.last_name }}" required>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_birth_date" class="form-label">Birth Date</label>
+                    <input type="date" name="birth_date" class="form-control" id="id_birth_date" value="{{ object.profile.birth_date }}">
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_profile_picture" class="form-label">Profile Picture</label>
+                    <input type="file" name="profile_picture" class="form-control" id="id_profile_picture">
+                    {% if object.profile.profile_picture %}
+                        <img src="{{ object.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid mt-2" style="max-width: 200px;">
+                    {% endif %}
+                </div>
+                
                 <button type="submit" class="btn btn-primary">Save</button>
             </form>
     </section>

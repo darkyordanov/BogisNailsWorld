@@ -74,12 +74,14 @@ class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
 
 
 class Profile(models.Model):
+    # object.profile.birth_date
     birth_date = models.DateField(
         default=None,
         blank=True,
         null=True,
     )
     
+    # object.profile.profile_picture
     profile_picture = models.ImageField(
         upload_to='account_pictures/',
         default=None,

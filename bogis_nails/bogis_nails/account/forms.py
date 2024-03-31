@@ -81,6 +81,16 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
         if instance and instance.pk:
             self.fields['birth_date'].initial = instance.profile.birth_date
             self.fields['profile_picture'].initial = instance.profile.profile_picture
+            
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        instance = getattr(self, 'instance', None)
+        
+        # Check if email exists and is different from the current instance's email
+        if email and UserModel.objects.exclude(pk=instance.pk).filter(email=email).exists():
+            raise forms.ValidationError("This email is already in use. Please choose a different email.")
+        
+        return email
 
             
     def clean_new_password2(self):
