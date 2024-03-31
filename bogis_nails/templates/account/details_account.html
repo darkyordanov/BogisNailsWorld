@@ -33,6 +33,11 @@
                                             <span class="ml-2" style="font-weight: bold; font-size: 2rem; color: #000000;">Orders</span>
                                         </a>
                                     <hr>
+                                    <a class="text-decoration-none" href="{% url "edit account" pk=object.pk %}">
+                                        <i class="fa-light fa-user fa-2x" style="color: #000000; margin-right: 5px;"></i>
+                                        <span class="ml-2" style="font-weight: bold; font-size: 2rem; color: #000000;">Edit Profile</span>
+                                    </a>
+                                    <hr>
                                 </ul> 
                             </nav>
                         </div>    
@@ -54,15 +59,10 @@
                             <!-- Profile information -->
                             <div class="profile-info">
                                 <h2>{{ object.first_name }} {{ object.last_name }}</h2>
-                                <p>Email: {{ object.email }}</p>
-                                <p>Birth Date: {{ object.profile.birth_date }}</p>
+                                <p>Email: <strong>{{ object.email }}</strong></p>
+                                <p>Birth Date: <strong>{{ object.profile.birth_date }}</strong></p>
                             </div>
                             
-                            <!-- Edit and delete buttons -->
-                            <div class="profile-buttons">
-                                <a href="{% url 'edit account' pk=object.pk %}" class="btn btn-primary">Edit</a>
-                                <a href="{% url 'delete account' pk=object.pk %}" class="btn btn-danger">Delete</a>
-                            </div>
                         </div>
                     </div>
                 </div>

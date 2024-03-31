@@ -50,8 +50,12 @@
                         <img src="{{ object.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid mt-2" style="max-width: 200px;">
                     {% endif %}
                 </div>
-                
-                <button type="submit" class="btn btn-primary">Save</button>
+            
+                <!-- Edit and delete buttons -->
+                <div class="profile-buttons">
+                    <button type="submit" class="btn btn-primary">Save</button>
+                    <a href="{% url 'delete account' pk=object.pk %}" class="btn btn-danger">Delete</a>
+                </div>
             </form>
     </section>
 {% endblock %}

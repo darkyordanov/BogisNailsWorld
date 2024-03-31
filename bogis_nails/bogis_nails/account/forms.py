@@ -27,12 +27,6 @@ class AccountRegisterForm(auth_forms.UserCreationForm):
         model = UserModel
         fields = ('email', 'password1', 'password2')
         
-        # widgets = {
-        #     'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-        #     'password1': forms.PasswordInput({'placeholder': 'Password'}),
-        #     'password2': forms.PasswordInput({'placeholder': 'Repeat password'}),
-        # }
-        
     email = forms.CharField(widget=forms.EmailInput(attrs={
         'placeholder': 'Your email address',
     }))
@@ -74,13 +68,21 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
     class Meta:
         model = UserModel
         fields = ('email', 'first_name', 'last_name', 'birth_date', 'profile_picture', 'new_password1', 'new_password2')
-
+        
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         instance = getattr(self, 'instance', None)
         if instance and instance.pk:
-            self.fields['birth_date'].initial = instance.profile.birth_date
-            self.fields['profile_picture'].initial = instance.profile.profile_picture
+            self.initial['birth_date'] = instance.profile.birth_date
+            self.initial['profile_picture'] = instance.profile.profile_picture
+        
+
+    # def __init__(self, *args, **kwargs):
+    #     super().__init__(*args, **kwargs)
+    #     instance = getattr(self, 'instance', None)
+    #     if instance and instance.pk:
+    #         self.fields['birth_date'].initial = instance.profile.birth_date
+    #         self.fields['profile_picture'].initial = instance.profile.profile_picture
             
     def clean_email(self):
         email = self.cleaned_data.get('email')
