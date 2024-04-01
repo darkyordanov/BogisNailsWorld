@@ -40,10 +40,11 @@ class UserModelAdmin(auth_admin.UserAdmin):
 
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('get_user_email', 'birth_date', 'display_profile_picture')
+    list_display = ('get_user_email', 'birth_date', 'display_profile_picture',)
+    list_filter = ('birth_date', )
     readonly_fields = ('user', )
-    search_fields = ('user__email', )
-    ordering = ('user__email', )
+    search_fields = ('user__email', 'user__created_at',)
+    ordering = ('user__created_at',)
 
     def get_user_email(self, obj):
         return obj.user.email

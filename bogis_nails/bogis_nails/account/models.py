@@ -44,6 +44,14 @@ class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
         ),
     )
     
+    created_at = models.DateTimeField(
+        auto_now_add=True,
+    )
+    
+    modified_at = models.DateTimeField(
+        auto_now=True,
+    )
+    
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)
     
     USERNAME_FIELD = "email"
@@ -112,25 +120,3 @@ class Bookmarks(models.Model):
     
     def __str__(self):
         return self.user.email
-    
-    
-# class Image(models.Model):
-#     image = models.ImageField(
-#         upload_to='collection_images/',
-#         blank=True,
-#         null=True,
-#     )
-
-
-# class ProfileCollection(models.Model):
-#     image = models.ManyToManyField(
-#         Image,
-#         related_name='collections',
-#     )
-    
-#     user = models.OneToOneField(
-#         AccountUser,
-#         primary_key=True,
-#         on_delete=models.DO_NOTHING,
-#         related_name='collection',
-#     )

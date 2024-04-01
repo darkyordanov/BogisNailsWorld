@@ -44,6 +44,16 @@
                     <label for="id_birth_date" class="form-label">Birth Date</label>
                     <input type="date" name="birth_date" class="form-control" id="id_birth_date" value="{{ object.profile.birth_date }}">
                 </div>
+
+                <div class="mb-3">
+                    <label for="id_new_password1" class="form-label">New Password</label>
+                    <input type="password" name="new_password1" class="form-control" id="id_new_password1" value="{{ object.profile.new_password1 }}">
+                </div>
+
+                <div class="mb-3">
+                    <label for="id_new_password2" class="form-label">Repeat New Password</label>
+                    <input type="password" name="new_password2" class="form-control" id="id_new_password2" value="{{ object.profile.new_password2 }}">
+                </div>
                 
                 <div class="mb-3">
                     <label for="id_profile_picture" class="form-label">Profile Picture</label>

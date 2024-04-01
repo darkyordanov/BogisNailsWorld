@@ -6,22 +6,6 @@ from bogis_nails.account.models import Profile
 UserModel = get_user_model()
 
 
-class AccountUserChangeForm(auth_forms.UserChangeForm):
-    class Meta(auth_forms.UserChangeForm.Meta):
-        model = UserModel
-        fields = '__all__'
-        # we can add additional custom fields to the form
-        # fields = auth_forms.UserChangeForm.Meta.fields + ('birth_date',)
-        
-        widgets = {
-            'email': forms.EmailInput(attrs={'placeholder': 'Email'}),
-            'first_name': forms.TextInput(attrs={'placeholder': 'First name'}),
-            'last_name': forms.TextInput(attrs={'placeholder': 'Last name'}),
-            # 'birth_date': forms.DateInput(attrs={'placeholder': 'Birth date'}),
-            # 'profile_picture': forms.ImageField(),
-        }
-        
-        
 class AccountRegisterForm(auth_forms.UserCreationForm):
     class Meta(auth_forms.UserCreationForm.Meta):
         model = UserModel
@@ -76,14 +60,6 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
             self.initial['birth_date'] = instance.profile.birth_date
             self.initial['profile_picture'] = instance.profile.profile_picture
         
-
-    # def __init__(self, *args, **kwargs):
-    #     super().__init__(*args, **kwargs)
-    #     instance = getattr(self, 'instance', None)
-    #     if instance and instance.pk:
-    #         self.fields['birth_date'].initial = instance.profile.birth_date
-    #         self.fields['profile_picture'].initial = instance.profile.profile_picture
-            
     def clean_email(self):
         email = self.cleaned_data.get('email')
         instance = getattr(self, 'instance', None)
@@ -93,7 +69,6 @@ class AccountUpdateForm(auth_forms.UserChangeForm):
             raise forms.ValidationError("This email is already in use. Please choose a different email.")
         
         return email
-
             
     def clean_new_password2(self):
         new_password1 = self.cleaned_data.get("new_password1")
