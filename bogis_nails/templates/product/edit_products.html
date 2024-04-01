@@ -11,6 +11,19 @@
                 <hr>
                 <form method="post" enctype="multipart/form-data" action="{% url 'edit product' pk=object.pk %}">
                     {% csrf_token %}
+
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for field, errors in form.errors.items %}
+                                    {% for error in errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
                     <div class="mb-3">
                         <label for="title" class="form-label">Title</label>
                         {{ form.title }}
@@ -42,7 +55,7 @@
                         <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
                     </div>
                     {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
-                    <button type="submit" class="btn btn-primary">Edit</button>
+                    <button type="submit" class="btn btn-primary">Save</button>
                     <a href="{% url 'delete product' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
                 </form>
             </div>

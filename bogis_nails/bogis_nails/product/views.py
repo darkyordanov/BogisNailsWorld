@@ -6,6 +6,9 @@ from django.views.generic import \
 from bogis_nails.product.models import Product
 from bogis_nails.product.forms import ProductForm
 
+# from django.contrib.auth.mixins import PermissionRequiredMixin
+
+
 # from django.shortcuts import render, redirect, get_object_or_404
 # from django.contrib import messages
 # from .models import Product, Cart
