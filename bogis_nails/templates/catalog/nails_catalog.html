@@ -68,10 +68,18 @@
         </div>
 
         {% if request.user.is_authenticated %}
+            {% if request.user.has_perm('product.add_naildesign') %}
+                <div class="col-md-6 text-end">
+                    <a href="{% url 'add nails design' %}" class="btn btn-primary mt-4 mb-3">Add Nails</a>
+                </div>
+            {% endif %}
+        {% endif %}
+{% comment %} 
+        {% if request.user.is_authenticated %}
             <div class="col-md-6 text-end">
                 <a href="{% url 'add nails design' %}" class="btn btn-primary mt-4 mb-3">Add Nails</a>
             </div>
-        {% endif %}
+        {% endif %} {% endcomment %}
         
     </div>
     

@@ -49,7 +49,6 @@ class NailDesign(TimeStampedModel):
         null=False,
     )  
     
-    # TODO: Make it like a ModelMixin 
     image = models.ImageField(
         upload_to='nail_images/'
     )

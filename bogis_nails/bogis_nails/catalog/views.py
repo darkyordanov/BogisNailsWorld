@@ -6,8 +6,8 @@ from django.views import generic as views
 
 from django.contrib.auth import mixins as auth_mixin
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
-from bogis_nails.account.models import Bookmarks
 from bogis_nails.catalog.forms import \
     NailDesignCreateForm, NailDesignEditForm
     
@@ -52,7 +52,8 @@ def nails_details(request, pk):
     return render(request, 'catalog/nails_details.html', context)
 
 
-class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, views.CreateView):
+class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, PermissionRequiredMixin, views.CreateView):
+    permission_required = 'product.add_naildesign'
     model = NailDesign
     form_class = NailDesignCreateForm
     template_name = 'catalog/add_nails_design.html'
