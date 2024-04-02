@@ -62,6 +62,14 @@
                         <img src="{{ object.profile.profile_picture.url }}" alt="Profile Picture" class="img-fluid mt-2" style="max-width: 200px;">
                     {% endif %}
                 </div>
+
+                <div class="mb-3">
+                    <label for="created_at" class="form-label">Created at: <strong>{{ object.created_at }}</strong></label>
+                </div>
+                <hr>
+                <div class="mb-3">
+                    <label for="modified_at" class="form-label">Last Modifited at: <strong>{{ object.modified_at }}</strong></label>
+                </div>
             
                 <div class="profile-buttons">
                     <button type="submit" class="btn btn-primary">Save</button>

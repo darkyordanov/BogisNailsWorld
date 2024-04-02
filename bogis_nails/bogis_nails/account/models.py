@@ -6,10 +6,11 @@ from django.core.mail import send_mail
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from bogis_nails.common.model_mixins import TimeStampedModel
 from bogis_nails.account.managers import AccountUserManager
 
 
-class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
+class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin, TimeStampedModel):
     email = models.EmailField(
         unique=True,
         error_messages={
@@ -42,14 +43,6 @@ class AccountUser(auth_models.AbstractBaseUser, auth_models.PermissionsMixin):
             "Designates whether this user should be treated as active. "
             "Unselect this instead of deleting accounts."
         ),
-    )
-    
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
-    
-    modified_at = models.DateTimeField(
-        auto_now=True,
     )
     
     date_joined = models.DateTimeField(_("date joined"), default=timezone.now)

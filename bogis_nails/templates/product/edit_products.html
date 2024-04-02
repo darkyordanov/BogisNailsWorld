@@ -47,12 +47,10 @@
                     </div>
                     <div class="mb-3">
                         <label for="created_at" class="form-label">Created at: <strong>{{ object.created_at }}</strong></label>
-                        <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
                     </div>
                     <hr>
                     <div class="mb-3">
                         <label for="modified_at" class="form-label">Last Modifited at: <strong>{{ object.modified_at }}</strong></label>
-                        <small class="form-text text-muted"><br>This field is readonly</br></small> <!-- Help text -->
                     </div>
                     {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
                     <button type="submit" class="btn btn-primary">Save</button>

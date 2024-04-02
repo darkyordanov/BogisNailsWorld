@@ -1,7 +1,9 @@
 from django.db import models
 
+from bogis_nails.common.model_mixins import TimeStampedModel
 
-class Product(models.Model):
+
+class Product(TimeStampedModel):
     title = models.CharField(
         max_length=36,
         blank=True,
@@ -19,17 +21,8 @@ class Product(models.Model):
         default=0,
     )
     
-    # TODO: Make it like a ModelMixin 
     image = models.ImageField(
         upload_to='product_images/'
-    )
-    
-    created_at = models.DateTimeField(
-        auto_now_add=True,
-    )
-    
-    modified_at = models.DateTimeField(
-        auto_now=True,
     )
     
     def __str__(self) -> str:

@@ -1,16 +1,10 @@
 from django.db import models
 
+from bogis_nails.common.model_mixins import TimeStampedModel
 from bogis_nails.core.models import Artist
 
 
-class ArtistContacts(models.Model):
-    # artist = models.ForeignKey(
-    #     Artist,
-    #     on_delete=models.DO_NOTHING,
-    #     blank=False,
-    #     null=False,
-    # )
-    
+class ArtistContacts(TimeStampedModel):    
     phone_number = models.CharField(
         max_length=15,
         blank=True,

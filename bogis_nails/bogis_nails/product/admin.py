@@ -7,5 +7,6 @@ class ProductAdmin(admin.ModelAdmin):
     list_display = ('title', 'price', 'created_at')
     list_filter = ('title', 'price', 'created_at', 'modified_at')
     search_fields = ('title', 'price', 'created_at', 'modified_at')
-    
+    readonly_fields = ('created_at', 'modified_at')
+    ordering = ('created_at', )
     
