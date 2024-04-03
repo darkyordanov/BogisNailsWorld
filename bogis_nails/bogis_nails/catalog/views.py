@@ -6,7 +6,6 @@ from django.views import generic as views
 
 from django.contrib.auth import mixins as auth_mixin
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import PermissionRequiredMixin
 
 from bogis_nails.catalog.forms import \
     NailDesignCreateForm, NailDesignEditForm
@@ -15,7 +14,6 @@ from bogis_nails.catalog.models import NailDesign
 
 
 def nails_catalog(request):
-    # Retrieve all nail designs initially
     nail_designs = NailDesign.objects.all()
 
     # Fetch distinct colors and sizes
@@ -41,20 +39,17 @@ def nails_catalog(request):
     return render(request, 'catalog/nails_catalog.html', context)
 
 
-@login_required
-def nails_details(request, pk):
-    nails_design = NailDesign.objects.get(id=pk)
+class DetailsNailsDesignView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, views.DetailView):
+    permission_required = [
+        'catalog.view_naildesign'
+    ]
+    queryset = NailDesign.objects.all()
+    template_name = 'catalog/nails_details.html'
     
-    context = {
-        'nails_design': nails_design
-    }
-    
-    return render(request, 'catalog/nails_details.html', context)
 
 
-class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, PermissionRequiredMixin, views.CreateView):
-    permission_required = 'product.add_naildesign'
-    model = NailDesign
+class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, views.CreateView):
+    permission_required = 'catalog.add_naildesign'
     form_class = NailDesignCreateForm
     template_name = 'catalog/add_nails_design.html'
 
@@ -64,8 +59,9 @@ class CreateNailsDesignView(auth_mixin.LoginRequiredMixin, PermissionRequiredMix
         })
 
 
-class EditNailsDesignView(auth_mixin.LoginRequiredMixin, views.UpdateView):
-    model = NailDesign
+class EditNailsDesignView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, views.UpdateView):
+    permission_required = 'catalog.change_naildesign'
+    queryset = NailDesign.objects.all()
     form_class = NailDesignEditForm
     template_name = 'catalog/edit_nails.html'
 
@@ -80,11 +76,10 @@ class EditNailsDesignView(auth_mixin.LoginRequiredMixin, views.UpdateView):
         })
     
 
-class DeleteNailsView(auth_mixin.LoginRequiredMixin, views.DeleteView):
-    model = NailDesign
+class DeleteNailsView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, views.DeleteView):
+    permission_required = 'catalog.delete_naildesign'
+    queryset = NailDesign.objects.all()
     template_name = "catalog/delete_nails.html"
-    # if I uncomment the form_class , the delete func doesn't work success
-    # form_class = NailDesignDeleteForm
     success_url = reverse_lazy('nails catalog')
     
     def get_context_data(self, **kwargs):
@@ -139,5 +134,3 @@ def remove_nails_design(request):
     
     return JsonResponse({'success': False})
 
-
-# class SomeApi(views.)

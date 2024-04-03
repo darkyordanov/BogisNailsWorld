@@ -3,7 +3,7 @@ from django.db import models
 from bogis_nails.common.model_mixins import TimeStampedModel
 
 
-class NailDesign(TimeStampedModel):
+class NailDesign(TimeStampedModel):    
     class Color(models.TextChoices):
         DARK = 'Dark', 'Dark'
         LIGHT = 'Light', 'Light'

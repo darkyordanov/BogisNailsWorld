@@ -14,31 +14,31 @@
                 <!-- Display Nails Details -->
                 <div class="mb-3">
                     <label for="title" class="form-label bold"><strong>Title</strong></label>
-                    <p>{{ nails_design.title }}</p>
+                    <p>{{ object.title }}</p>
                 </div>
                 <hr>
                 <div class="mb-3">
                     <label for="colors" class="form-label bold"><strong>Color</strong></label>
-                    <p>{{ nails_design.colors }}</p>
+                    <p>{{ object.colors }}</p>
                 </div>
                 <hr>
                 <div class="mb-3">
                     <label for="size" class="form-label bold"><strong>Size</strong></label>
-                    <p>{{ nails_design.size }}</p>
+                    <p>{{ object.size }}</p>
                 </div>
                 <hr>
                 <div class="mb-3">
                     <label for="created_at" class="form-label bold"><strong>Created At</strong></label>
-                    <p>{{ nails_design.created_at }}</p>
+                    <p>{{ object.created_at }}</p>
                 </div>
                 <hr>
                 <div class="mb-3">
                     <label for="image" class="form-label bold"><strong>Image</strong></label>
-                    <img src="{{ nails_design.image.url }}" alt="{{ nails_design.title }}" class="img-fluid">
+                    <img src="{{ object.image.url }}" alt="{{ object.title }}" class="img-fluid">
                 </div>
                 <hr>
 
-                <form method="post" action="{% url 'delete nails' nails_design.pk %}">
+                <form method="post" action="{% url 'delete nails' object.pk %}">
                     {% csrf_token %}
                     <button type="submit" class="btn btn-primary" style="background-color: #dc3545;">Confirm Delete</button>
                 </form>

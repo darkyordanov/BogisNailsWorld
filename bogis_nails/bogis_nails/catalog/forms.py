@@ -34,6 +34,3 @@ class NailDesignEditForm(NailDesignBaseForm):
         
         return self.instance.created_at
         
-
-class NailDesignDeleteForm(NailDesignBaseForm, ReadonlyFieldsFormMixin):
-    pass
