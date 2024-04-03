@@ -24,7 +24,8 @@ class DetailsProductView(DetailView):
     template_name = 'product/details_product.html'
     
 
-class AddProductView(auth_mixin.LoginRequiredMixin, CreateView):
+class AddProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, CreateView):
+    permission_required = 'product.add_product'
     queryset = Product.objects.all()
     form_class = ProductForm
     template_name = 'product/add_product.html'
@@ -35,7 +36,8 @@ class AddProductView(auth_mixin.LoginRequiredMixin, CreateView):
        })
             
 
-class EditProductView(auth_mixin.LoginRequiredMixin, UpdateView):
+class EditProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, UpdateView):
+    permission_required = 'product.change_product'
     queryset = Product.objects.all()
     form_class = ProductForm
     template_name = 'product/edit_products.html'
@@ -46,7 +48,8 @@ class EditProductView(auth_mixin.LoginRequiredMixin, UpdateView):
         })
 
 
-class DeleteProductView(auth_mixin.LoginRequiredMixin, DeleteView):
+class DeleteProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequiredMixin, DeleteView):
+    permission_required = 'product.delete_product'
     queryset = Product.objects.all()
     template_name = 'product/delete_product.html'
     success_url = reverse_lazy('products')

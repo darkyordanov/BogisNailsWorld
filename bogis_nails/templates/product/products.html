@@ -13,11 +13,15 @@
             <div class="col-md-6">
                 <h2 class="mt-4 mb-3">Products for Care</h2>
             </div>
+            
             {% if request.user.is_authenticated %}
-                <div class="col-md-6 text-end">
-                    <a href="{% url 'add product' %}" class="btn btn-primary mt-4 mb-3">Add Product</a>
-                </div>
+                {% if perms.product.add_product %}
+                    <div class="col-md-6 text-end">
+                        <a href="{% url 'add product' %}" class="btn btn-primary mt-4 mb-3">Add Product</a>
+                    </div>
+                {% endif %}
             {% endif %}
+
         </div>
 
         <div class="row">

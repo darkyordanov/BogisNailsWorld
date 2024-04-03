@@ -15,10 +15,6 @@ class NailDesignBaseForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'placeholder': 'Nails title'}),
         }
         
-        labels = {
-            'title': 'Nails title',
-        }
-        
         
 class NailDesignCreateForm(NailDesignBaseForm):
     pass
