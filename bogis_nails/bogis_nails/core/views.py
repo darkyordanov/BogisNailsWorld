@@ -6,7 +6,7 @@ def index(request):
 
 
 def custom_404(request, exception):
-    return render(request, '404.html', status=404)
+    return render(request, 'errors_handling/404.html', status=404)
 
 
 def price_list(request):
