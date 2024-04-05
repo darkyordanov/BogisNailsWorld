@@ -29,36 +29,29 @@ body {
     margin-top: 20px;
 }
 
-.profile-buttons .btn {
-    margin-right: 10px; /* Add space between buttons */
-}
-
-/* Hover effect for Edit button */
-.profile-buttons .btn-profile {
+.profile-buttons a.btn-profile {
     color: #f3b6b6;
     background-color: #084041;
     border: none;
     padding: 8px 20px;
     border-radius: 8px;
     cursor: pointer;
+    display: inline-block; /* Added display property */
+    text-decoration: none; /* Ensure no default underline */
 }
 
-/* Change background and text color when hovering over Edit button */
-.profile-buttons .btn-profile:hover {
+/* Hover effect for Edit button */
+.profile-buttons a.btn-profile:hover {
     background-color: #f3b6b6;
     color: #084041;
 }
 
 /* Reset background and text color when not hovering over Edit button */
-.profile-buttons .btn-profile:not(:hover) {
+.profile-buttons a.btn-profile:not(:hover) {
     background-color: #084041;
     color: #f3b6b6;
 }
 
 .text-left {
     text-align: left;
-}
-
-.text-decoration-none {
-    text-decoration: none !important;
 }
