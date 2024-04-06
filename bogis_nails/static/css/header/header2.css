@@ -79,9 +79,7 @@ main {
     background-color: #56887d;
 }
 
-/* Sticky footer */
 .footer {
-    position: fixed;
     bottom: 0;
     width: 100%;
     background-color: #c9a17a;
@@ -89,8 +87,6 @@ main {
     padding: 8px 20px;
     text-align: center;
 }
-
-
 
 
 

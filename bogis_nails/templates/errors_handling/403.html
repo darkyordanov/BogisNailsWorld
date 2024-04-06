@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header bg-danger text-white">
+                        <h1 class="display-4">Permission Denied!</h1>
+                    </div>
+                    <div class="card-body">
+                        <p class="lead">Oops! You don't have permission to access this page.</p>
+                        <hr>
+                        <a class="btn btn-primary" href="{% url 'index' %}" role="button">Go Back to Home</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
