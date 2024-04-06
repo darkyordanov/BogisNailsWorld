@@ -1,0 +1,57 @@
+/* details_account.css */
+body {
+    background-image: url('/media/backgrounds/profile_details3.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Adjustments to profile container */
+.profile-container {
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile picture */
+.profile-picture {
+    max-width: 100%;
+    border-radius: 50%; /* Make the profile picture circular */
+}
+
+/* Profile information */
+.profile-info {
+    margin-top: 20px;
+}
+
+/* Edit and delete buttons */
+.profile-buttons {
+    margin-top: 20px;
+}
+
+.profile-buttons a.btn-profile {
+    color: #f3b6b6;
+    background-color: #084041;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: inline-block; /* Added display property */
+    text-decoration: none; /* Ensure no default underline */
+}
+
+/* Hover effect for Edit button */
+.profile-buttons a.btn-profile:hover {
+    background-color: #f3b6b6;
+    color: #084041;
+}
+
+/* Reset background and text color when not hovering over Edit button */
+.profile-buttons a.btn-profile:not(:hover) {
+    background-color: #084041;
+    color: #f3b6b6;
+}
+
+.text-left {
+    text-align: left;
+}

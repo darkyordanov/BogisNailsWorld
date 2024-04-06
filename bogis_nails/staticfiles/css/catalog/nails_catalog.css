@@ -1,0 +1,31 @@
+.bookmark-button {
+    display: none;
+    z-index: 10; /* Adjust this value if necessary */
+}
+
+/* .catalog {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.nail-design {
+    width: 200px;
+    border: 1px solid #a00707;
+    padding: 10px;
+    transition: transform 0.3s;
+}
+
+.nail-design:hover {
+    transform: scale(1.1);
+}
+
+.nail-image {
+    width: 100%;
+    height: auto;
+}
+
+.nail-details {
+    margin-top: 10px;
+} */
