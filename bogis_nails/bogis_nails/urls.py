@@ -13,6 +13,7 @@ urlpatterns = [
     path('booking/', include('bogis_nails.booking.urls')),
     path('products/', include('bogis_nails.product.urls')),
     path('account/', include('bogis_nails.account.urls')),
+    path('cart/', include('bogis_nails.cart.urls')),
 ]
 
 if settings.DEBUG:

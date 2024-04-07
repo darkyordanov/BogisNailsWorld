@@ -3,7 +3,7 @@
     margin-top: 20px;
 }
 
-.edit-button, .delete-button {
+.edit-button, .delete-button, .card-button {
     display: inline-block;
     padding: 10px 20px;
     margin-right: 10px;
@@ -21,6 +21,40 @@
     background-color: #dc3545; /* Red color for delete button */
 }
 
-.edit-button:hover, .delete-button:hover {
+.card-button {
+    color: #f3b6b6;
+    background-color: #084041;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.edit-button:hover, .delete-button:hover, .card-button:hover {
     background-color: #0056b3; /* Darker shade of blue for hover effect on edit button */
+}
+
+.card-button:hover {
+    background-color: #084041; /* Darker shade for hover effect on view product button */
+    color: #f3b6b6; /* Text color change on hover for view product button */
+}
+
+/* Product Card Overlay */
+.card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(8, 64, 65, 0.7); /* Adjust the opacity here */
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.card:hover .card-overlay {
+    opacity: 1;
 }

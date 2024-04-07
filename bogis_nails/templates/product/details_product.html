@@ -31,6 +31,13 @@
                     <div class="card-body">
                         <p class="card-text">{{ object.description }}</p>
                     </div>
+                    
+                    {% if request.user.is_authenticated %}
+                        <button type="button" value="{{ object.pk }}" class="btn btn-secondary" id="add_cart">
+                            Add to cart
+                        </button>
+                    {% endif %}
+
                     <div class="card-footer">
                         {% if request.user.is_authenticated %}
                             {% if perms.product.change_product and perms.product.delete_product %}
@@ -46,4 +53,30 @@
         </div>
     </div>
 </section>
+
+<script>
+// Check if button is pressed
+$(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url "cart add" %}',
+        data: {
+            product_id: $('#add-cart').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+
+        success: function(json){
+            console.log(json)
+        },
+
+        error: function(xhr, errmsg, err){
+
+        }
+
+    });
+});
+</script>
+
 {% endblock %}
