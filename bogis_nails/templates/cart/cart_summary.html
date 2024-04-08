@@ -2,10 +2,151 @@
 
 {% block main_content %}
 
-    <h1>Shopping Cart</h1>
-    <br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/>
-    <br/><br/><br/><br/><br/><br/><br/><br/>
-    
+<div class="container">
+    <div class="row">
+        <div class="col-md-6">
+            <h2 class="mt-4 mb-3">Shopping Cart</h2>
+        </div>
+        </div>
+    <div class="container">
+        {% if cart_products %}
+            {% for product in cart_products %}
+            <div class="card mb-3">
+                <div class="row g-0">
+                <div class="col-md-4">
+                    <img src="{{ product.image.url }}" class="img-fluid rounded-start" alt="...">
+                </div>
+                <div class="col-md-8">
+                    <div class="card-body">
+                    <center>
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <br/>
+                    <p class="card-text justified">{{ product.description }}</p>
+                    
+                    {% if product.is_sale %}
+                    <div class="d-flex justify-content-center small text-warning mb-2">
+                            <div class="bi-star-fill"></div>
+                            &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                            <div class="bi-star-fill"></div>
+                            </div>
+            
+                            <!-- Product price-->
+                            <strike>
+                            ${{ product.price }}
+                            </strike>
+                            &nbsp;
+                            ${{ product.sale_price }}
+            
+            
+            
+                    {% else %}
+                        ${{ product.price }}
+                        
+                    {% endif %}
+                        <br/><br/>
+                        <div class="row justify-content-center">
+                            <div class="col-md-2">Quantity:</div>
+                                <div class="col-md-2">
+                                    <select class="form-select form-select-sm" id="select{{ product.id }}">
+                                        <option selected>
+                                            {% for key, value in quantities.items %}
+                                                {% if key == product.id|slugify %}
+                                                    {{ value }}
+                                                {% endif %}
+                                            {% endfor %}
+                                        </option>    
+
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                        <option value="7">7</option>
+                                        <option value="8">8</option>
+                                        <option value="9">9</option>
+                                        <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br/>
+                        <a href="{% url 'products'%}" class="btn">Back to Products</a>
+                        <button type="button" data-index="{{ product.id }}" class="btn btn-secondary update-cart">Update</button>
+                        <button type="button" data-index="{{ product.id }}" class="btn btn-primary delete-product" style="background-color: #dc3545;">Remove</button>
+            
+                </center>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% else %}
+            There's Nothing In Your Cart...
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+            <br/><br/><br/><br/><br/><br/><br/><br/>
+        {% endif %}
+    </div>
+
+<script>
+// Update Cart
+$(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    // grab the product id
+    var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart update' %}',
+    data: {
+      product_id: $(this).data('index'),
+      product_qty: $('#select' + productid + ' option:selected').text(),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+// Delete Cart
+$(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    // grab the product id
+    //var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart delete' %}',
+    data: {
+      product_id: $(this).data('index'),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+</script>
+
 {% endblock %}

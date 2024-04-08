@@ -1,13 +1,19 @@
 from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.contrib.auth.decorators import login_required
 
 from bogis_nails.product.models import Product
 from bogis_nails.cart.cart import Cart
 
-
+@login_required
 def cart_summary(request):
+    cart = Cart(request)
+    cart_products = cart.get_products
+    quantities = cart.get_quantitues
+    
     context = {
-        
+        'cart_products': cart_products,
+        'quantities': quantities,
     }
     
     return render(request, 'cart/cart_summary.html', context)
@@ -27,27 +33,54 @@ Test the cart_add functionality:
     }
 '''
 
+@login_required
 def cart_add(request):
     cart = Cart(request)
     
     if request.POST.get('action') == 'post':
         product_id = int(request.POST.get('product_id'))
+        product_qty = int(request.POST.get('product_qty'))
         product = get_object_or_404(Product, id=product_id)
         
         
         # Save the session
-        cart.add(product=product)
+        cart.add(product=product, quantity=product_qty)
         
+        cart_quantity = cart.__len__()
+        
+        # response = JsonResponse({
+        #     'Product Name': product.title,
+        # })
         response = JsonResponse({
-            'Product Name': product.title,
+            'quantity': cart_quantity,
         })
         
         return response        
 
 
-def cart_delete(request):
-    pass
-
-
+@login_required
 def cart_update(request):
-    pass
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        product_qty = int(request.POST.get('product_qty'))
+        
+        cart.update(product=product_id, quantity=product_qty)
+        
+        response = JsonResponse({
+            'qty': product_qty,
+        })
+        
+        return response
+        # return redirect('cart summary')
+
+
+@login_required
+def cart_delete(request):
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        
+        cart.delete(product=product_id)

@@ -31,11 +31,32 @@
                     <div class="card-body">
                         <p class="card-text">{{ object.description }}</p>
                     </div>
-                    {% if request.user.is_authenticated %}
-                        <button type="button" value="{{ object.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
-                    {% endif %}
-                    <a href="{% url 'products'%}" class="btn">Back to Products</a>
-                   
+
+                <br/>
+                <div class="row justify-content-center">
+                    <div class="col-md-2">Quantity:</div>
+                        <div class="col-md-2">
+                            <select class="form-select form-select-sm" id="qty-cart">
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                                <option value="7">7</option>
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+
+                {% if request.user.is_authenticated %}
+                    <button type="button" value="{{ object.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
+                {% endif %}
+                <a href="{% url 'products'%}" class="btn">Back to Products</a>
+                
                     <div class="card-footer">
                         {% if request.user.is_authenticated %}
                             {% if perms.product.change_product and perms.product.delete_product %}
@@ -53,35 +74,34 @@
 </section>
 <script>
     // Check if button pressed
-    $(document).on('click', '#add-cart', function(e){
-        e.preventDefault();
-        $.ajax({
-            type: 'POST',
-            url: '{% url 'cart add' %}',
-            data: {
-        product_id: $('#add-cart').val(),
-        product_qty: $('#qty-cart option:selected').text(),
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'post'
-            },
-    
-            success: function(json){
-                //console.log(json)
-                document.getElementById("cart_quantity").textContent = json.qty
-                location.reload();
-            },
-    
-            error: function(xhr, errmsg, err){
-    
-            }
-    
-    
-        });
-    
-    
-    
-    })
-    
+$(document).on('click', '#add-cart', function(e){
+    e.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart add' %}',
+        data: {
+    product_id: $('#add-cart').val(),
+    product_qty: $('#qty-cart option:selected').text(),
+    csrfmiddlewaretoken: '{{ csrf_token }}',
+    action: 'post'
+        },
+
+        success: function(json){
+            //console.log(json)
+            document.getElementById("cart_quantity").textContent = json.qty
+            location.reload();
+        },
+
+        error: function(xhr, errmsg, err){
+
+        }
+
+
+    });
+
+
+
+})
 </script>
 
 {% endblock %}
