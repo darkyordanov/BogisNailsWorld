@@ -1,6 +1,6 @@
 /* styles.css */
 
-Background image
+/* Background image */
 body, .navbar {
     background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
     background-size: cover;
@@ -16,6 +16,11 @@ body, .navbar {
 /* Reset background color when hovering over non-button links */
 .navbar-nav .nav-link:not(.btn):hover {
     background-color: transparent; /* Reset background color */
+}
+
+.navbar-nav .dropdown-item:hover {
+    color: #b76e79; /* Change text color when hovering over dropdown items */
+    background-color: transparent;
 }
 
 body {
@@ -56,6 +61,7 @@ main {
     padding: 8px 20px;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 18px; /* Increased font size */
 }
 
 .btn-primary:hover {
@@ -73,6 +79,7 @@ main {
     padding: 8px 20px;
     border-radius: 8px;
     cursor: pointer;
+    font-size: 18px; /* Increased font size */
 }
 
 .btn-secondary:hover {

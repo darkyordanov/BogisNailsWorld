@@ -47,34 +47,74 @@
                         </li>
 
                         {% if request.user.is_authenticated %}
-                            <li class="nav-item">
+                            {% comment %} <li class="nav-item">
                                 <a class="nav-link" href="#">Loyalty Program</a>
-                            </li>
+                            </li> {% endcomment %}
 
                             <li class="nav-item">
                                 <a class="nav-link" href="{% url 'booking'%}">Booking</a>
                             </li>
 
-                            <li class="nav-item">
+                            {% comment %} <li class="nav-item">
                                 <a class="nav-link" href="{% url "cart summary" %}">
                                     <i class="fa-light fa-cart-shopping fa-2xl"></i>
                                 </a>
+                            </li> {% endcomment %}
+                            <li>
+                                <a href="{% url 'cart summary' %}" class="btn btn-outline-dark">
+                                    <i class="fa-light fa-cart-shopping fa-2xl" class="bi-cart-fill me-1"></i>
+                                    <span class="badge bg-dark text-white ms-1 rounded-pill" id="cart_quantity">{{ cart|length }}</span>
+                                </a>
                             </li>
 
-                            <li class="nav-item">
-                                <a class="nav-link" href={% url 'details account' pk=user.pk%}>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-light fa-user fa-2xl"></i>
-                                </a> 
-                            </li>   
+                                </a>
+                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                                    <li>
+                                        <a class="dropdown-item" href="{% url 'details account' pk=user.pk %}">
+                                            <i class="fa-light fa-user-circle me-2"></i> Profile Details
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa-light fa-folder-open me-2"></i> Collection
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa-light fa-shopping-bag me-2"></i> Orders
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="#">
+                                            <i class="fa-light fa-gift me-2"></i> Loyalty Program
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li class="dropdown-item">
+                                        <form action="{% url 'logout' %}" method="post">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger w-100">
+                                                <i class="fa-light fa-arrow-right-from-bracket me-2"></i> Logout
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </li>
+                            
+                              
 
-                            <li class="nav-item">
+                            {% comment %} <li class="nav-item">
                                 <form action="{% url 'logout' %}" method="post">
                                     {% csrf_token %}
                                     <button type="submit" class="btn btn-primary">
                                         <i class="fa-light fa-arrow-right-from-bracket fa-xl"></i>
                                     </button>
                                 </form>
-                            </li>
+                            </li> {% endcomment %}
+
                             {% comment %} <li class="nav-item">
                                 <a class="nav-link" href="{% url 'details account' pk=user.pk%}">
                                     {% if  request.user.profile_picture %} 

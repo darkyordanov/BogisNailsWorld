@@ -14,7 +14,7 @@ class Cart():
         
     def add(self, product):
         # pk == id??
-        product_id = (product.id)
+        product_id = str(product.id)
         
         if product_id in self.cart:
             pass
@@ -25,3 +25,7 @@ class Cart():
             }
             
         self.session.modified = True
+        
+    def __len__(self):
+        return len(self.cart)
+        

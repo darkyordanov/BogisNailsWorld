@@ -31,13 +31,11 @@
                     <div class="card-body">
                         <p class="card-text">{{ object.description }}</p>
                     </div>
-                    
                     {% if request.user.is_authenticated %}
-                        <button type="button" value="{{ object.pk }}" class="btn btn-secondary" id="add_cart">
-                            Add to cart
-                        </button>
+                        <button type="button" value="{{ object.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
                     {% endif %}
-
+                    <a href="{% url 'products'%}" class="btn">Back to Products</a>
+                   
                     <div class="card-footer">
                         {% if request.user.is_authenticated %}
                             {% if perms.product.change_product and perms.product.delete_product %}
@@ -53,30 +51,37 @@
         </div>
     </div>
 </section>
-
 <script>
-// Check if button is pressed
-$(document).on('click', '#add-cart', function(e){
-    e.preventDefault();
-    $.ajax({
-        type: 'POST',
-        url: '{% url "cart add" %}',
-        data: {
-            product_id: $('#add-cart').val(),
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            action: 'post'
-        },
-
-        success: function(json){
-            console.log(json)
-        },
-
-        error: function(xhr, errmsg, err){
-
-        }
-
-    });
-});
+    // Check if button pressed
+    $(document).on('click', '#add-cart', function(e){
+        e.preventDefault();
+        $.ajax({
+            type: 'POST',
+            url: '{% url 'cart add' %}',
+            data: {
+        product_id: $('#add-cart').val(),
+        product_qty: $('#qty-cart option:selected').text(),
+        csrfmiddlewaretoken: '{{ csrf_token }}',
+        action: 'post'
+            },
+    
+            success: function(json){
+                //console.log(json)
+                document.getElementById("cart_quantity").textContent = json.qty
+                location.reload();
+            },
+    
+            error: function(xhr, errmsg, err){
+    
+            }
+    
+    
+        });
+    
+    
+    
+    })
+    
 </script>
 
 {% endblock %}
