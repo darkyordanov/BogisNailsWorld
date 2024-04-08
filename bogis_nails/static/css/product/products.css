@@ -21,6 +21,12 @@
     background-color: #dc3545; /* Red color for delete button */
 }
 
+.sale-text {
+    color: orange;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
 .card-button {
     color: #f3b6b6;
     background-color: #084041;

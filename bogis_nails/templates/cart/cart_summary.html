@@ -26,16 +26,16 @@
                     {% if product.is_sale %}
                     <div class="d-flex justify-content-center small text-warning mb-2">
                             <div class="bi-star-fill"></div>
-                            &nbsp;&nbsp;Sale!&nbsp;&nbsp;
+                            &nbsp;&nbsp;<strong>Sale!</strong>&nbsp;&nbsp;
                             <div class="bi-star-fill"></div>
                             </div>
             
                             <!-- Product price-->
                             <strike>
-                            ${{ product.price }}
+                            $<strong>{{ product.price }}</strong>
                             </strike>
                             &nbsp;
-                            ${{ product.sale_price }}
+                            $<strong>{{ product.sale_price }}</strong>
             
             
             
@@ -72,13 +72,17 @@
                         <br/>
                         <a href="{% url 'products'%}" class="btn">Back to Products</a>
                         <button type="button" data-index="{{ product.id }}" class="btn btn-secondary update-cart">Update</button>
-                        <button type="button" data-index="{{ product.id }}" class="btn btn-primary delete-product" style="background-color: #dc3545;">Remove</button>
+                        <button type="button" data-index="{{product.id}}" class="btn btn-primary delete-product" style="background-color: #dc3545;">Remove</button>
             
                 </center>
                     </div>
                 </div>
             </div>
+            </div>
         {% endfor %}
+            <h3>Total: $<strong>{{ total_price }}</strong></h3>
+
+            <br/><br/><br/>
         {% else %}
             There's Nothing In Your Cart...
             <br/><br/><br/><br/><br/><br/><br/><br/>
@@ -120,7 +124,7 @@ $(document).on('click', '.update-cart', function(e){
 })
 
 // Delete Cart
-$(document).on('click', '.update-cart', function(e){
+$(document).on('click', '.delete-product', function(e){
     e.preventDefault();
     // grab the product id
     //var productid = $(this).data('index');

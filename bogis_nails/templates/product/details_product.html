@@ -21,20 +21,32 @@
                         <h2 class="card-text">{{ object.title }}</h2>
                     </div>
                     <div class="card-footer">
-                        <p class="price">Price: {{ object.price }}</p>
-                        {% if object.quantity %}
-                            <p class="quantity">In Stock: <strong>{{ object.quantity }}</strong></p>
+                        {% if object.is_sale %}
+                            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem">Sale</div>
+                            <div class="text-center">
+                                <!-- Sale -->
+                                <div class="d-flex justify-content-center small text-warning mb-2">
+                                    <div class="bi-star-fill"></div>
+                                    &nbsp;&nbsp;<strong>Sale!</strong>&nbsp;&nbsp;
+                                    <div class="bi-star-fill"></div>
+                                </div>
+                                <!-- Product price-->
+                                <strike>Price: $<strong>{{ object.price }}</strong></strike>
+                            </br>
+                                &nbsp;Sale Price: $<strong>{{ object.sale_price }}</strong>
+                            </div>
                         {% else %}
-                            <p class="out-of-stock"><strong>Out of Stock</strong></p>
+                            <!-- Regular Product price -->
+                            <p class="price">Price: ${{ object.price }}</p>
                         {% endif %}
                     </div>
                     <div class="card-body">
                         <p class="card-text">{{ object.description }}</p>
                     </div>
 
-                <br/>
-                <div class="row justify-content-center">
-                    <div class="col-md-2">Quantity:</div>
+                    <br/>
+                    <div class="row justify-content-center">
+                        <div class="col-md-2">Quantity:</div>
                         <div class="col-md-2">
                             <select class="form-select form-select-sm" id="qty-cart">
                                 <option value="1">1</option>
@@ -52,11 +64,11 @@
                     </div>
                     <br/>
 
-                {% if request.user.is_authenticated %}
-                    <button type="button" value="{{ object.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
-                {% endif %}
-                <a href="{% url 'products'%}" class="btn">Back to Products</a>
-                
+                    {% if request.user.is_authenticated %}
+                        <button type="button" value="{{ object.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
+                    {% endif %}
+                    <a href="{% url 'products'%}" class="btn">Back to Products</a>
+                    
                     <div class="card-footer">
                         {% if request.user.is_authenticated %}
                             {% if perms.product.change_product and perms.product.delete_product %}
@@ -80,27 +92,20 @@ $(document).on('click', '#add-cart', function(e){
         type: 'POST',
         url: '{% url 'cart add' %}',
         data: {
-    product_id: $('#add-cart').val(),
-    product_qty: $('#qty-cart option:selected').text(),
-    csrfmiddlewaretoken: '{{ csrf_token }}',
-    action: 'post'
+            product_id: $('#add-cart').val(),
+            product_qty: $('#qty-cart option:selected').text(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
         },
-
         success: function(json){
             //console.log(json)
             document.getElementById("cart_quantity").textContent = json.qty
             location.reload();
         },
-
         error: function(xhr, errmsg, err){
 
         }
-
-
     });
-
-
-
 })
 </script>
 

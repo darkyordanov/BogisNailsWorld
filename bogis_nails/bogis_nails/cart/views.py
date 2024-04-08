@@ -10,10 +10,12 @@ def cart_summary(request):
     cart = Cart(request)
     cart_products = cart.get_products
     quantities = cart.get_quantitues
+    total_price = cart.total_price
     
     context = {
         'cart_products': cart_products,
         'quantities': quantities,
+        'total_price': total_price,
     }
     
     return render(request, 'cart/cart_summary.html', context)
@@ -68,12 +70,12 @@ def cart_update(request):
         
         cart.update(product=product_id, quantity=product_qty)
         
-        response = JsonResponse({
-            'qty': product_qty,
-        })
+        # response = JsonResponse({
+        #     'qty': product_qty,
+        # })
         
-        return response
-        # return redirect('cart summary')
+        # return response
+        return redirect('cart summary')
 
 
 @login_required
@@ -84,3 +86,5 @@ def cart_delete(request):
         product_id = int(request.POST.get('product_id'))
         
         cart.delete(product=product_id)
+        
+        return redirect('cart summary')
