@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block main_content %}
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-12">
+            <h2 class="mb-4">My Nails Collection</h2>
+            <hr/>
+        </div>
+    </div>
+   
+    {% if collection_data %}
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            {% for nail_design in collection_data %}
+                <div class="col mb-4">
+                    <div class="card h-100">
+                        <img src="{{ nail_design.image.url }}" class="card-img-top" alt="{{ nail_design.title }}">
+                        <div class="card-body">
+                        <h5><p class="card-title">
+                                Color: {{ nail_design.colors }}<br>
+                                Size: {{ nail_design.size }}
+                            </p></h5>
+                        </div>
+                        <div class="card-footer">
+                            <a href="#" class="btn btn-danger float-end">Remove</a> 
+                            {% comment %} <a href="{% url 'delete_nail_design' nail_design.id %}" class="btn btn-danger float-end">Delete</a>  {% endcomment %}
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <!-- Pagination -->
+        {% if collection_data.has_previous or collection_data.has_next %}
+            <div class="row mt-5">
+                <div class="col-md-12">
+                    <ul class="pagination justify-content-center">
+                        {% if collection_data.has_previous %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ collection_data.previous_page_number }}">Previous</a>
+                            </li>
+                        {% endif %}
+                        
+                        {% for i in collection_data.paginator.page_range %}
+                            <li class="page-item {% if collection_data.number == i %}active{% endif %}">
+                                <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                            </li>
+                        {% endfor %}
+                        
+                        {% if collection_data.has_next %}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{ collection_data.next_page_number }}">Next</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        {% endif %}
+    {% else %}
+        <div class="row">
+            <div class="col-md-12">
+                <p class="text-center">Your collection is empty.</p>
+            </div>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

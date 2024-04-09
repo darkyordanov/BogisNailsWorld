@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth import get_user_model
 
 from bogis_nails.common.model_mixins import TimeStampedModel
 
+UserModel = get_user_model()
 
 class NailDesign(TimeStampedModel):    
     class Color(models.TextChoices):
@@ -55,3 +57,16 @@ class NailDesign(TimeStampedModel):
     
     def __str__(self) -> str:
         return self.title
+
+
+class Collection(models.Model):
+    nails_designs = models.ManyToManyField(
+        NailDesign,
+        # on_delete=models.DO_NOTHING
+    )
+    
+    user = models.ForeignKey(
+        UserModel,
+        on_delete=models.CASCADE,
+        related_name='collection_user'
+    )

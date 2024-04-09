@@ -1,20 +1,22 @@
 from django.db.models.base import Model as Model
-from django.http import JsonResponse
-from django.shortcuts import render
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, render, reverse
 from django.urls import reverse_lazy
 from django.views import generic as views
 
 from django.contrib.auth import mixins as auth_mixin
 from django.contrib.auth.decorators import login_required
 
+from django.core.paginator import Paginator
+
 from bogis_nails.catalog.forms import \
     NailDesignCreateForm, NailDesignEditForm
     
-from bogis_nails.catalog.models import NailDesign
+from bogis_nails.catalog.models import Collection, NailDesign
 
 
 def nails_catalog(request):
-    nail_designs = NailDesign.objects.all()
+    nail_designs = NailDesign.objects.all().order_by('-created_at')
 
     # Fetch distinct colors and sizes
     colors = NailDesign.objects.values_list('colors', flat=True).distinct()
@@ -95,42 +97,84 @@ class DeleteNailsView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequir
 
 
 @login_required
-def save_nails_design(request):
-    nail_designs = NailDesign.objects.all()
+def collection(request):
+    collection_list = Collection.objects.get(user=request.user)
     
-    if request.method == 'POST':
-        image_url = request.POST.get('image_url')
-        
-        if 'bookmarked_images' not in request.session:
-            request.session['bookmarked_images'] = []
-            
-        if image_url and image_url not in request.session['bookmarked_images']:
-            request.session['bookmarked_images'].append(image_url)
-            request.session.modified = True
-            
-        return JsonResponse({'success': True})
+    # Pagination
+    paginator = Paginator(collection_list.nails_designs.all(), 6)
+    page_number = request.GET.get('page')
+    collection_data = paginator.get_page(page_number)
     
     context = {
-        'nail_designs': nail_designs,
+         'collection_data': collection_data,
     }
+    
+    return render(request, 'catalog/collection.html', context)
 
-    return render(request, 'catalog/nails_catalog.html', context)
+
+@login_required
+def collection_add(request, nails_design_id):
+    user = request.user
+    nails_design = get_object_or_404(NailDesign, id=nails_design_id)
+    
+    try:
+        c, created =  Collection.objects.get_or_create(user=user)
+        # not sure nails_design/nails_designs ??
+        if c.nails_designs.filter(id=nails_design_id).exists():
+            c.nails_designs.remove(nails_design)
+        else:
+            c.nails_designs.add(nails_design)
+            
+        nails_design.save()
+        
+        return HttpResponseRedirect(reverse('nails details', kwargs={'pk': nails_design_id}))
+    
+    except Exception as e:
+        raise e
     
 
 @login_required
-def remove_nails_design(request):
-    nail_designs = NailDesign.objects.all()
+def collection_remove_nails(request):
+    pass
+
+
+# @login_required
+# def save_nails_design(request):
+#     nail_designs = NailDesign.objects.all()
     
-    if request.method == 'POST':
-        image_url = request.POST.get('image_url')
+#     if request.method == 'POST':
+#         image_url = request.POST.get('image_url')
         
-        if 'bookmarked_images' in request.session \
-            and \
-        image_url in request.session['bookmarked_images']:
-            request.session['bookmarked_images'].remove(image_url)
-            request.session.modified = True
+#         if 'bookmarked_images' not in request.session:
+#             request.session['bookmarked_images'] = []
             
-        return JsonResponse({'success': True})
+#         if image_url and image_url not in request.session['bookmarked_images']:
+#             request.session['bookmarked_images'].append(image_url)
+#             request.session.modified = True
+            
+#         return JsonResponse({'success': True})
     
-    return JsonResponse({'success': False})
+#     context = {
+#         'nail_designs': nail_designs,
+#     }
+
+#     return render(request, 'catalog/nails_catalog.html', context)
+    
+
+# @login_required
+# def remove_nails_design(request):
+#     nail_designs = NailDesign.objects.all()
+    
+#     if request.method == 'POST':
+#         image_url = request.POST.get('image_url')
+        
+#         if 'bookmarked_images' in request.session \
+#             and \
+#         image_url in request.session['bookmarked_images']:
+#             request.session['bookmarked_images'].remove(image_url)
+#             request.session.modified = True
+            
+#         return JsonResponse({'success': True})
+    
+#     return JsonResponse({'success': False})
 
