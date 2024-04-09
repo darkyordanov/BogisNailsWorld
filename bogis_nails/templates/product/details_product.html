@@ -37,7 +37,7 @@
                             </div>
                         {% else %}
                             <!-- Regular Product price -->
-                            <p class="price">Price: ${{ object.price }}</p>
+                            <p class="price">Price: $<strong>{{ object.price }}</strong></p>
                         {% endif %}
                     </div>
                     <div class="card-body">
@@ -85,7 +85,8 @@
     </div>
 </section>
 <script>
-    // Check if button pressed
+
+// Check if button pressed
 $(document).on('click', '#add-cart', function(e){
     e.preventDefault();
     $.ajax({
@@ -97,15 +98,22 @@ $(document).on('click', '#add-cart', function(e){
             csrfmiddlewaretoken: '{{ csrf_token }}',
             action: 'post'
         },
+
         success: function(json){
-            //console.log(json)
+            console.log(json)
             document.getElementById("cart_quantity").textContent = json.qty
             location.reload();
         },
+
         error: function(xhr, errmsg, err){
 
         }
+
+
     });
+
+
+
 })
 </script>
 

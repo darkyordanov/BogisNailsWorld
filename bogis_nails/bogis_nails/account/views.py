@@ -1,11 +1,10 @@
 from django.db.models.base import Model as Model
-from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views import generic as views
 from django.contrib.auth import views as auth_views
 from django.contrib.auth import get_user_model
 from django.contrib.auth import mixins as auth_mixins
-from django.contrib.auth import login as auth_login
+from django.contrib import messages
 
 from bogis_nails.account.forms import \
     AccountLoginForm, AccountRegisterForm, AccountUpdateForm
@@ -26,8 +25,7 @@ class RegisterAccountView(views.CreateView):
 class LoginAccountView(auth_views.LoginView):
     template_name = 'account/login.html'
     success_url = reverse_lazy('index')
-    redirect_authenticated_user = True
-    
+    redirect_authenticated_user = True    
     authentication_form = AccountLoginForm
     
     # def form_valid(self, form):

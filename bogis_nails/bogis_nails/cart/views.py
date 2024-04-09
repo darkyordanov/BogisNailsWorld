@@ -1,6 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from bogis_nails.product.models import Product
 from bogis_nails.cart.cart import Cart
@@ -50,12 +51,12 @@ def cart_add(request):
         
         cart_quantity = cart.__len__()
         
-        # response = JsonResponse({
-        #     'Product Name': product.title,
-        # })
         response = JsonResponse({
             'quantity': cart_quantity,
         })
+        
+        # Soon 
+        # messages.success(request, ('Product Added to Cart...'))
         
         return response        
 

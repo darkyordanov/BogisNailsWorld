@@ -16,7 +16,6 @@ class Cart():
         self.cart = cart
         
     def add(self, product, quantity):
-        # pk == id??
         product_id = str(product.id)
         product_qty = str(quantity)
         
@@ -24,9 +23,6 @@ class Cart():
             pass
         
         else:
-            # self.cart[product_id] = {
-            #     'price': str(product.price),
-            # }
             self.cart[product_id] = int(product_qty)
             
         self.session.modified = True
