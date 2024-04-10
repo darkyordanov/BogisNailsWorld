@@ -45,6 +45,7 @@
                     </div>
 
                     <br/>
+                    {% if request.user.is_authenticated %}
                     <div class="row justify-content-center">
                         <div class="col-md-2">Quantity:</div>
                         <div class="col-md-2">
@@ -64,7 +65,7 @@
                     </div>
                     <br/>
 
-                    {% if request.user.is_authenticated %}
+                    
                         <button type="button" value="{{ object.id }}" class="btn btn-secondary" id="add-cart">Add To Cart</button>
                     {% endif %}
                     <a href="{% url 'products'%}" class="btn">Back to Products</a>
