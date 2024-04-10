@@ -106,7 +106,7 @@ def collection(request):
     collection_list, created = Collection.objects.get_or_create(user=request.user)
     
     # Pagination
-    paginator = Paginator(collection_list.nails_designs.all(), 6)
+    paginator = Paginator(collection_list.nails_designs.all(), 12)
     page_number = request.GET.get('page')
     collection_data = paginator.get_page(page_number)
     
@@ -122,19 +122,16 @@ def add_to_collection(request, nails_design_id):
     user = request.user
     nails_design = get_object_or_404(NailDesign, id=nails_design_id)
     
-    try:
-        c, created =  Collection.objects.get_or_create(user=user)
-        if c.nails_designs.filter(id=nails_design_id).exists():
-            c.nails_designs.remove(nails_design)
-        else:
-            c.nails_designs.add(nails_design)
-            
+    # Get the user's collection if it exists
+    collection = Collection.objects.filter(user=user).first()
+    
+    if collection:
+        collection.nails_designs.add(nails_design)
+        
         nails_design.save()
         
-        return redirect('nails catalog')
-    
-    except Exception as e:
-        raise e
+    return redirect('nails catalog')
+
     
 @login_required
 def remove_from_collection(request):
