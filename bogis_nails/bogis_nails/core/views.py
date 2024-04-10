@@ -11,3 +11,7 @@ def custom_404(request, exception):
 
 def price_list(request):
     return render(request, 'core/price_list.html')
+
+
+def contacts(request):
+    return render(request, 'core/contacts.html')

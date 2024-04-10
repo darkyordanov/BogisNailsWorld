@@ -1,31 +1,104 @@
+/* Background image */
+body {
+    background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Updated Card Styles */
+.card {
+    border: none;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    position: relative; /* Ensure relative positioning for bookmark button */
+}
+
+.card img {
+    max-height: 300px;
+    object-fit: cover;
+}
+
+.card:hover {
+    border: 2px solid #000000; /* Frame around the image */
+}
+
+/* Updated Bookmark Button Styles */
 .bookmark-button {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    padding: 8px;
+    transition: background-color 0.3s ease-in-out;
+    z-index: 1; /* Ensure button is above the image */
+}
+
+.bookmark-button:checked {
+    fill: black;
+}
+
+/* Solid background when bookmarked */
+.bookmark-button.bookmarked {
+    background-color: bl; /* Solid gold background */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow for emphasis */
+}
+
+/* Display bookmark button on hover */
+.card:hover .bookmark-button {
+    display: block;
+}
+
+/* Hover effect for bookmark button */
+.bookmark-button:hover {
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+/* Lightbox Overlay Styles */
+#lightbox-overlay {
     display: none;
-    z-index: 10; /* Adjust this value if necessary */
-}
-
-/* .catalog {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    padding: 20px;
-}
-
-.nail-design {
-    width: 200px;
-    border: 1px solid #a00707;
-    padding: 10px;
-    transition: transform 0.3s;
-}
-
-.nail-design:hover {
-    transform: scale(1.1);
-}
-
-.nail-image {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    height: auto;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
 
-.nail-details {
-    margin-top: 10px;
-} */
+#lightbox-container {
+    position: relative;
+    max-width: 80%;
+    max-height: 80%;
+    overflow: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+}
+
+#lightbox-image {
+    max-width: 100%;
+    max-height: 100%;
+    margin: auto;
+    display: block;
+    border-radius: 10px;
+}
+
+#close-lightbox {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+#close-lightbox:hover {
+    color: #ccc;
+}
+
+.fa-light:active {
+    background-color: black;
+}

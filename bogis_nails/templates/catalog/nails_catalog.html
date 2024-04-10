@@ -39,9 +39,13 @@
         z-index: 1; /* Ensure button is above the image */
     }
     
+    .bookmark-button:checked {
+        fill: black;
+    }
+
     /* Solid background when bookmarked */
     .bookmark-button.bookmarked {
-        background-color: #ffcc00; /* Solid gold background */
+        background-color: bl; /* Solid gold background */
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow for emphasis */
     }
     
@@ -97,6 +101,10 @@
 
     #close-lightbox:hover {
         color: #ccc;
+    }
+
+    .fa-light:active {
+        background-color: black;
     }
     
 </style>

@@ -6,13 +6,6 @@ from django.views.generic import \
 from bogis_nails.product.models import Product
 from bogis_nails.product.forms import ProductForm
 
-# from django.contrib.auth.mixins import PermissionRequiredMixin
-
-
-# from django.shortcuts import render, redirect, get_object_or_404
-# from django.contrib import messages
-# from .models import Product, Cart
-
 
 class ProductsView(ListView):
     queryset = Product.objects.all()
@@ -64,24 +57,3 @@ class DeleteProductView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequ
         self.object.delete()
         return super().delete(request, *args, **kwargs)
     
-
-# def add_to_cart(request, pk):
-#     # Retrieve the product based on the primary key
-#     product = get_object_or_404(Product, pk=pk)
-    
-#     # Check if a cart exists for the user, if not create one
-#     if not request.session.get('cart_id'):
-#         cart = Cart.objects.create()
-#         request.session['cart_id'] = cart.id
-    
-#     cart_id = request.session.get('cart_id')
-#     cart = Cart.objects.get(id=cart_id)
-    
-#     # Add the product to the cart
-#     cart.products.add(product)
-    
-#     # Optionally, you can add a success message
-#     messages.success(request, f"{product.title} added to cart.")
-    
-#     # Redirect to the same page or wherever you want
-#     return redirect('name_of_the_same_page_or_cart_page')

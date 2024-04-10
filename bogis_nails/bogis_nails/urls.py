@@ -8,7 +8,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     
     path('', include('bogis_nails.core.urls')),
-    path('contacts/', include('bogis_nails.contacts.urls')),
     path('catalog/', include('bogis_nails.catalog.urls')),
     path('booking/', include('bogis_nails.booking.urls')),
     path('products/', include('bogis_nails.product.urls')),

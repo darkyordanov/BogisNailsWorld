@@ -6,15 +6,12 @@
     <link rel="stylesheet" href="{% static 'css/account/details_account.css' %}">
 
     <body class="p-3 m-0 border-0 bd-example m-0 border-0">
-        <!-- Profile Section -->
         <main class="container mt-4">
-            <!-- Profile Information Section -->
             <section class="section">
                 <h1 class="section-title text-left">Profile of {{ object.full_name }}</h1>
                 <hr>
 
                 <div class="row">
-                    <!-- Move the navigation to the left side on larger screens -->
                     <div class="col-lg-4">
                         <div class="hidden lg:block">
                             <nav class="woocommerce-MyAccount-navigation lg:mt-12 aos-init aos-animate" data-aos="fade-zoom-in" data-aos-easing="ease-in-back" data-aos-offset="0" data-aos-duration="500">
@@ -30,10 +27,10 @@
                                         <span class="ml-2" style="font-size: 2rem; color: #000000;">Orders</span>
                                     </a>
                                     <hr>
-                                    <a class="text-decoration-none" href="#" id="orders">
+                                    {% comment %} <a class="text-decoration-none" href="#" id="orders">
                                         <i class="fa-light fa-gift fa-2x" style="color: #000000; margin-right: 5px;"></i>
                                         <span class="ml-2" style="font-size: 2rem; color: #000000;">Loyalty</span>
-                                    </a>
+                                    </a> {% endcomment %}
                                     <hr>
                                     <a class="text-decoration-none btn-profile" href="{% url 'edit account' pk=object.pk %}" id="edit-profile">
                                         <i class="fa-light fa-user-circle fa-2x" style="color: #000000; margin-right: 5px;"></i>
@@ -44,10 +41,8 @@
                             </nav>
                         </div>    
                     </div>    
-                    <!-- Profile details on the right side -->
                     <div class="col-lg-8">
                         <div class="profile-container">
-                            <!-- Profile picture -->
                             <div class="profile-picture">
                                 {% if object.profile.profile_picture %}
                                     <img src="{{ object.profile.profile_picture.url }}" class="img-fluid" alt="{{ object.username }}">
@@ -57,7 +52,6 @@
                                 {% endif %}
                             </div>
                         
-                            <!-- Profile information -->
                             <div class="profile-info">
                                 <h2>{{ object.first_name }} {{ object.last_name }}</h2>
                                 <p>Email: <strong>{{ object.email }}</strong></p>

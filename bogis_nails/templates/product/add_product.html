@@ -3,7 +3,6 @@
 {% block main_content %}
 
 <main class="container mt-4">
-    <!-- Add Nails Section -->
     <section class="section">
         <div class="row">
             <div class="col-md-6 offset-md-3">
@@ -43,9 +42,8 @@
                     <div class="mb-3">
                         <label for="image" class="form-label">Image</label>
                         {{ form.image }}
-                        <small class="form-text text-muted"><br>Upload an image for the product</br></small> <!-- Help text -->
+                        <small class="form-text text-muted"><br>Upload an image for the product</br></small>
                     </div>
-                    {% comment %} Good practice or no ??? {% if request.user.is_authenticated %}{% endif %} {% endcomment %}
                     <button type="submit" class="btn btn-primary">Add</button>
                 </form>
             </div>

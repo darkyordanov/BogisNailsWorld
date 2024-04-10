@@ -21,6 +21,57 @@
             <h2 style="text-align: center;">2018 People’s Choice Award Winner!</h2>
         </div>
     </div>
+    
+    <section class="artist-info mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <img src="static/media/9439685.jpg" alt="Bogi, Nail Artist" class="img-fluid rounded">
+                </div>
+                <div class="col-md-6">
+                    <h3>Meet Bogi, Your Talented Nail Artist!</h3>
+                    <p>With over 10 years of experience in the nail art industry, Bogi brings creativity, precision, and passion to every design. Known for her meticulous attention to detail and innovative techniques, Bogi has established herself as a leading figure. 
+                    <br>
+                    <div class="col-md-6">
+                        <h3>Artist's Certificates</h3>
+                        <p>Bogi is proud to hold multiple certifications and awards in the field of nail artistry. She has completed advanced training programs with renowned nail technicians and educators, earning certifications in nail sculpting, nail artistry, and product knowledge. Bogi's commitment to continuous learning and professional development ensures that she stays at the forefront of industry trends and techniques, providing her clients with the highest quality of service and expertise.</p>
+                    </div>
+                    Bogi is proud to hold multiple certifications and awards, including (list certifications and awards here). Her commitment to continuous learning ensures she stays at the forefront of industry trends and techniques, providing the highest quality service and expertise to her clients.
+                    </p>
+                    <p><strong>See Bogi's stunning nail designs in action!</strong></p>
+                    <a href="{% url 'nails catalog' %}" class="btn btn-primary">Explore Nail Design Gallery</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+</main>
+{% endblock %}
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block main_content %}
+<style>
+    /* Background image */
+    body {
+        background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+</style>
+
+<main class="container mt-4">
+    <div class="et_pb_column et_pb_column_4_4 et_pb_column_0  et_pb_css_mix_blend_mode_passthrough et-last-child">
+        <div class="et_pb_text_inner">
+            <h1 style="text-align: center;">Welcome to Bogi's Nails World!</h1>
+        </div>
+        <hr>
+        <div class="et_pb_text_inner">
+            <h2 style="text-align: center;">2018 People’s Choice Award Winner!</h2>
+        </div>
+    </div>
     <h2>- Current Login Profile: <hr><strong>{{ request.user }}</strong>-</h2>
     <!-- Additional content goes here -->
 
@@ -53,4 +104,4 @@
         </div>
     </section>
 </main>
-{% endblock %}
+{% endblock %} {% endcomment %}

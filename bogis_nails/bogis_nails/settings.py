@@ -24,7 +24,6 @@ INSTALLED_APPS = [
     'bogis_nails.core',
     'bogis_nails.catalog',
     'bogis_nails.product',
-    'bogis_nails.contacts',
     'bogis_nails.account',
     'bogis_nails.booking',
     'bogis_nails.cart',
