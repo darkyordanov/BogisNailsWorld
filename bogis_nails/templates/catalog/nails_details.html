@@ -35,12 +35,6 @@
                 <hr>
                 <a href="{% url 'edit nails' pk=object.pk %}" class="btn btn-primary">Edit</a>
                 <a href="{% url 'delete nails' pk=object.pk %}" class="btn btn-primary" style="background-color: #dc3545;">Delete</a>
-
-                <div class="bookmark-button position-absolute bottom-0 start-50 translate-middle-x">
-                    <a class="text-decoration-none" href="{% url 'collectiona add' object.id %}">
-                        <i class="fa-light fa-bookmark fa-2x" style="color: #000000; margin-right: 5px;"></i>
-                    </a>
-                </div>
             </div>
         </div>
     </section>

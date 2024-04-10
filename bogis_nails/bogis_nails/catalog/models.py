@@ -62,7 +62,6 @@ class NailDesign(TimeStampedModel):
 class Collection(models.Model):
     nails_designs = models.ManyToManyField(
         NailDesign,
-        # on_delete=models.DO_NOTHING
     )
     
     user = models.ForeignKey(

@@ -18,6 +18,442 @@
         position: relative; /* Ensure relative positioning for bookmark button */
     }
 
+    .card img {
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .card:hover {
+        border: 2px solid #000000; /* Frame around the image */
+    }
+
+    /* Updated Bookmark Button Styles */
+    .bookmark-button {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        padding: 8px;
+        transition: background-color 0.3s ease-in-out;
+        z-index: 1; /* Ensure button is above the image */
+    }
+    
+    /* Solid background when bookmarked */
+    .bookmark-button.bookmarked {
+        background-color: #ffcc00; /* Solid gold background */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Add shadow for emphasis */
+    }
+    
+    /* Display bookmark button on hover */
+    .card:hover .bookmark-button {
+        display: block;
+    }
+    
+    /* Hover effect for bookmark button */
+    .bookmark-button:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Lightbox Overlay Styles */
+    #lightbox-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #lightbox-container {
+        position: relative;
+        max-width: 80%;
+        max-height: 80%;
+        overflow: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #lightbox-image {
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    #close-lightbox {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #close-lightbox:hover {
+        color: #ccc;
+    }
+    
+</style>
+
+<div class="container mt-5">
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2 class="mb-3">Nail Gallery</h2>
+            <div id="success-message" class="success-message" style="display: none;">Added to collection</div>
+        <hr/>
+        </div>
+        {% if request.user.is_authenticated %}
+            {% if perms.catalog.add_naildesign %}
+                <div class="col-md-6 text-end">
+                    <a href="{% url 'add nails design' %}" class="btn btn-primary">Add New Nail Design</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Search Form -->
+    {% if request.user.is_authenticated %}
+        <form method="GET" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="color" class="form-select">
+                        <option value="" {% if not request.GET.color %}selected{% endif %}>All Colors</option>
+                        {% for color in colors %}
+                            <option value="{{ color }}" {% if request.GET.color == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="size" class="form-select">
+                        <option value="" {% if not request.GET.size %}selected{% endif %}>All Shapes</option>
+                        {% for size in sizes %}
+                            <option value="{{ size }}" {% if request.GET.size == size %}selected{% endif %}>{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for nail_design in collection_data %}
+        <div class="col">
+            <div class="card position-relative">
+                <img src="{{ nail_design.image.url }}" class="card-img-top" alt="{{ nail_design.title }}">
+                
+                <!-- Bookmark button -->
+                <div class="bookmark-button {% if nail_design in request.user.collection.nails_designs.all %}bookmarked{% endif %}">
+                    <a class="text-decoration-none" href="{% url 'add to collection' nail_design.id %}">
+                        <i class="fa-light fa-bookmark fa-2x" style="color: #000000;"></i>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Lightbox Overlay -->
+<div id="lightbox-overlay">
+    <div id="lightbox-container">
+        <img id="lightbox-image" src="#" alt="Enlarged Image">
+        <span id="close-lightbox">&times;</span>
+    </div>
+</div>
+
+<!-- Pagination -->
+{% if collection_data.has_previous or collection_data.has_next %}
+<div class="row mt-5">
+    <div class="col-md-12">
+        <ul class="pagination justify-content-center">
+            {% if collection_data.has_previous %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ collection_data.previous_page_number }}">Previous</a>
+                </li>
+            {% endif %}
+            
+            {% for i in collection_data.paginator.page_range %}
+                <li class="page-item {% if collection_data.number == i %}active{% endif %}">
+                    <a class="page-link" href="?page={{ i }}">{{ i }}</a>
+                </li>
+            {% endfor %}
+            
+            {% if collection_data.has_next %}
+                <li class="page-item">
+                    <a class="page-link" href="?page={{ collection_data.next_page_number }}">Next</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</div>
+{% endif %}
+
+<script>
+    const nailImages = document.querySelectorAll('.card-img-top');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const lightboxContainer = document.getElementById('lightbox-container');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const closeLightbox = document.getElementById('close-lightbox');
+    const successMessage = document.getElementById('success-message');
+
+    nailImages.forEach(image => {
+        image.addEventListener('click', () => {
+            const imageUrl = image.getAttribute('src');
+            lightboxImage.setAttribute('src', imageUrl);
+            lightboxOverlay.style.display = 'flex';
+        });
+    });
+
+    // Close lightbox
+    lightboxOverlay.addEventListener('click', function (event) {
+        if (event.target === lightboxOverlay || event.target === closeLightbox) {
+            lightboxOverlay.style.display = 'none';
+        }
+    });
+
+</script>
+
+{% endblock %}
+
+{% comment %} {% extends "base.html" %}
+
+{% block main_content %}
+<style>
+    /* Background image */
+    body {
+        background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* Updated Card Styles */
+    .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        position: relative; /* Ensure relative positioning for bookmark button */
+    }
+
+    .card img {
+        max-height: 300px;
+        object-fit: cover;
+    }
+
+    .card:hover {
+        border: 2px solid #000000; /* Frame around the image */
+    }
+
+    /* Updated Bookmark Button Styles */
+    .bookmark-button {
+        position: absolute;
+        bottom: 10px;
+        right: 10px;
+        background-color: rgba(255, 255, 255, 0.7);
+        border-radius: 50%;
+        padding: 8px;
+        display: none; /* Initially hidden */
+        transition: background-color 0.3s ease-in-out;
+        z-index: 1; /* Ensure button is above the image */
+    }
+
+    /* Add this new style for bookmarked button */
+    .bookmark-button.bookmarked {
+        background-color: rgba(255, 255, 255, 1); /* Solid white background */
+    }
+
+    .card:hover .bookmark-button {
+        display: block;
+    }
+
+    .bookmark-button:hover {
+        background-color: rgba(255, 255, 255, 0.9);
+    }
+
+    /* Lightbox Overlay Styles */
+    #lightbox-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #lightbox-container {
+        position: relative;
+        max-width: 80%;
+        max-height: 80%;
+        overflow: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #lightbox-image {
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    #close-lightbox {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #close-lightbox:hover {
+        color: #ccc;
+    }
+
+    /* Success Message Style */
+    .success-message {
+        color: green;
+        font-weight: bold;
+        margin-top: 20px;
+    }
+</style>
+
+<div class="container mt-5">
+    <!-- ... (Rest of your code remains the same) ... -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <h2 class="mb-3">Nail Gallery</h2>
+            <div id="success-message" class="success-message" style="display: none;">Added to collection</div>
+        <hr/>
+        </div>
+        {% if request.user.is_authenticated %}
+            {% if perms.catalog.add_naildesign %}
+                <div class="col-md-6 text-end">
+                    <a href="{% url 'add nails design' %}" class="btn btn-primary">Add New Nail Design</a>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+
+    <!-- Search Form -->
+    {% if request.user.is_authenticated %}
+        <form method="GET" class="mb-4">
+            <div class="row">
+                <div class="col-md-4">
+                    <select name="color" class="form-select">
+                        <option value="" {% if not request.GET.color %}selected{% endif %}>All Colors</option>
+                        {% for color in colors %}
+                            <option value="{{ color }}" {% if request.GET.color == color %}selected{% endif %}>{{ color }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <select name="size" class="form-select">
+                        <option value="" {% if not request.GET.size %}selected{% endif %}>All Shapes</option>
+                        {% for size in sizes %}
+                            <option value="{{ size }}" {% if request.GET.size == size %}selected{% endif %}>{{ size }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+    {% endif %}
+
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        {% for nail_design in nail_designs %}
+        <div class="col">
+            <div class="card position-relative">
+                <img src="{{ nail_design.image.url }}" class="card-img-top" alt="{{ nail_design.title }}">
+                
+                <!-- Bookmark button -->
+                <div class="bookmark-button {% if nail_design in request.user.collection.nails_designs.all %}bookmarked{% endif %}">
+                    <a class="text-decoration-none" href="{% url 'add to collection' nail_design.id %}">
+                        <i class="fa-light fa-bookmark fa-2x" style="color: #000000;"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Lightbox Overlay -->
+<div id="lightbox-overlay">
+    <div id="lightbox-container">
+        <img id="lightbox-image" src="#" alt="Enlarged Image">
+        <span id="close-lightbox">&times;</span>
+    </div>
+</div>
+
+<script>
+    const nailImages = document.querySelectorAll('.card-img-top');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const lightboxContainer = document.getElementById('lightbox-container');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const closeLightbox = document.getElementById('close-lightbox');
+    const successMessage = document.getElementById('success-message');
+
+    nailImages.forEach(image => {
+        image.addEventListener('click', () => {
+            const imageUrl = image.getAttribute('src');
+            lightboxImage.setAttribute('src', imageUrl);
+            lightboxOverlay.style.display = 'flex';
+        });
+    });
+
+    // Close lightbox
+    lightboxOverlay.addEventListener('click', function (event) {
+        if (event.target === lightboxOverlay || event.target === closeLightbox) {
+            lightboxOverlay.style.display = 'none';
+        }
+    });
+
+</script>
+
+{% endblock %}
+
+
+ {% endcomment %}
+
+
+
+{% comment %} {% extends "base.html" %}
+
+{% block main_content %}
+<style>
+    /* Background image */
+    body {
+        background-image: url('/media/backgrounds/nails_catalog/top-view-flowers-with-copy-space.jpg');
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+    /* Updated Card Styles */
+    .card {
+        border: none;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease-in-out;
+        position: relative; /* Ensure relative positioning for bookmark button */
+    }
+
     .card:hover {
         transform: scale(1.03);
     }
@@ -196,7 +632,7 @@
     });
 </script>
 
-{% endblock %}
+{% endblock %} {% endcomment %}
 
 
 

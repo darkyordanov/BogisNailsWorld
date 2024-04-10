@@ -93,7 +93,7 @@
     </div>
 </div>
 
-    <script>
+<script>
     // Update Cart
     $(document).on('click', '.update-cart', function(e){
         e.preventDefault();
@@ -101,25 +101,20 @@
         var productid = $(this).data('index');
 
         $.ajax({
-        type: 'POST',
-        url: '{% url 'cart update' %}',
-        data: {
-        product_id: $(this).data('index'),
-        product_qty: $('#select' + productid + ' option:selected').text(),
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'post'
-        },
-        success: function(json){
-            location.reload();
-        },
-
-        error: function(xhr, errmsg, err){
-
-        }
-
-
+            type: 'POST',
+            url: '{% url 'cart update' %}',
+            data: {
+            product_id: $(this).data('index'),
+            product_qty: $('#select' + productid + ' option:selected').text(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+            },
+            success: function(json){
+                location.reload();
+            },
+            error: function(xhr, errmsg, err){
+            }
         });
-
     })
 
     // Delete Cart
@@ -129,24 +124,19 @@
         //var productid = $(this).data('index');
 
         $.ajax({
-        type: 'POST',
-        url: '{% url 'cart delete' %}',
-        data: {
-        product_id: $(this).data('index'),
-        csrfmiddlewaretoken: '{{ csrf_token }}',
-        action: 'post'
-        },
-        success: function(json){
-            location.reload();
-        },
-
-        error: function(xhr, errmsg, err){
-
-        }
-
-
+            type: 'POST',
+            url: '{% url 'cart delete' %}',
+            data: {
+            product_id: $(this).data('index'),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+            },
+            success: function(json){
+                location.reload();
+            },
+            error: function(xhr, errmsg, err){
+            }
         });
-
     })
 </script>
 

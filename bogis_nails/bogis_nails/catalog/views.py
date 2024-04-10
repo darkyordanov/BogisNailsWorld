@@ -1,6 +1,6 @@
 from django.db.models.base import Model as Model
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import get_object_or_404, render, reverse
+from django.shortcuts import get_object_or_404, redirect, render, reverse
 from django.urls import reverse_lazy
 from django.views import generic as views
 
@@ -31,9 +31,14 @@ def nails_catalog(request):
             nail_designs = nail_designs.filter(colors=color)
         if size:
             nail_designs = nail_designs.filter(size=size)
+    
+    # Pagination
+    paginator = Paginator(nail_designs.all(), 18)
+    page_number = request.GET.get('page')
+    nail_designs = paginator.get_page(page_number)
 
     context = {
-        'nail_designs': nail_designs,
+        'collection_data': nail_designs,
         'colors': colors,
         'sizes': sizes,
     }
@@ -94,11 +99,11 @@ class DeleteNailsView(auth_mixin.LoginRequiredMixin, auth_mixin.PermissionRequir
         self.object = self.get_object()
         self.object.delete()
         return super().delete(request, *args, **kwargs)
-
-
+    
+    
 @login_required
 def collection(request):
-    collection_list = Collection.objects.get(user=request.user)
+    collection_list, created = Collection.objects.get_or_create(user=request.user)
     
     # Pagination
     paginator = Paginator(collection_list.nails_designs.all(), 6)
@@ -113,13 +118,12 @@ def collection(request):
 
 
 @login_required
-def collection_add(request, nails_design_id):
+def add_to_collection(request, nails_design_id):
     user = request.user
     nails_design = get_object_or_404(NailDesign, id=nails_design_id)
     
     try:
         c, created =  Collection.objects.get_or_create(user=user)
-        # not sure nails_design/nails_designs ??
         if c.nails_designs.filter(id=nails_design_id).exists():
             c.nails_designs.remove(nails_design)
         else:
@@ -127,54 +131,22 @@ def collection_add(request, nails_design_id):
             
         nails_design.save()
         
-        return HttpResponseRedirect(reverse('nails details', kwargs={'pk': nails_design_id}))
+        return redirect('nails catalog')
     
     except Exception as e:
         raise e
     
-
 @login_required
-def collection_remove_nails(request):
-    pass
-
-
-# @login_required
-# def save_nails_design(request):
-#     nail_designs = NailDesign.objects.all()
-    
-#     if request.method == 'POST':
-#         image_url = request.POST.get('image_url')
+def remove_from_collection(request):
+    if request.method == 'POST' and request.POST.get('action') == 'post':
+        nails_design_id_str = request.POST.get('nails_design_id')
         
-#         if 'bookmarked_images' not in request.session:
-#             request.session['bookmarked_images'] = []
+        if nails_design_id_str is not None and nails_design_id_str.isdigit():
+            nails_design_id = int(nails_design_id_str)
+            collection = get_object_or_404(Collection, user=request.user)
+            nail_design = get_object_or_404(NailDesign, id=nails_design_id)
             
-#         if image_url and image_url not in request.session['bookmarked_images']:
-#             request.session['bookmarked_images'].append(image_url)
-#             request.session.modified = True
+            collection.nails_designs.remove(nail_design)
             
-#         return JsonResponse({'success': True})
-    
-#     context = {
-#         'nail_designs': nail_designs,
-#     }
-
-#     return render(request, 'catalog/nails_catalog.html', context)
-    
-
-# @login_required
-# def remove_nails_design(request):
-#     nail_designs = NailDesign.objects.all()
-    
-#     if request.method == 'POST':
-#         image_url = request.POST.get('image_url')
-        
-#         if 'bookmarked_images' in request.session \
-#             and \
-#         image_url in request.session['bookmarked_images']:
-#             request.session['bookmarked_images'].remove(image_url)
-#             request.session.modified = True
-            
-#         return JsonResponse({'success': True})
-    
-#     return JsonResponse({'success': False})
+    return redirect('collection')
 

@@ -1,6 +1,52 @@
 {% extends "base.html" %}
 
 {% block main_content %}
+<style>
+    /* Lightbox Overlay Styles */
+    #lightbox-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.8);
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    }
+
+    #lightbox-container {
+        position: relative;
+        max-width: 80%;
+        max-height: 80%;
+        overflow: auto;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+    }
+
+    #lightbox-image {
+        max-width: 100%;
+        max-height: 100%;
+        margin: auto;
+        display: block;
+        border-radius: 10px;
+    }
+
+    #close-lightbox {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 30px;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #close-lightbox:hover {
+        color: #ccc;
+    }
+</style>
+
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12">
@@ -14,22 +60,31 @@
             {% for nail_design in collection_data %}
                 <div class="col mb-4">
                     <div class="card h-100">
-                        <img src="{{ nail_design.image.url }}" class="card-img-top" alt="{{ nail_design.title }}">
+                        <img src="{{ nail_design.image.url }}" class="card-img-top nail-image" alt="{{ nail_design.title }}">
                         <div class="card-body">
-                        <h5><p class="card-title">
-                                Color: {{ nail_design.colors }}<br>
-                                Size: {{ nail_design.size }}
-                            </p></h5>
+                            <h5>
+                                <p class="card-title">
+                                    Color: {{ nail_design.colors }}<br>
+                                    Size: {{ nail_design.size }}
+                                </p>
+                            </h5>
                         </div>
                         <div class="card-footer">
-                            <a href="#" class="btn btn-danger float-end">Remove</a> 
-                            {% comment %} <a href="{% url 'delete_nail_design' nail_design.id %}" class="btn btn-danger float-end">Delete</a>  {% endcomment %}
+                            <button type="button" data-index="{{nail_design.id}}" class="btn btn-primary float-end remove-from-collection" style="background-color: #dc3545;">Remove</button>
                         </div>
                     </div>
                 </div>
             {% endfor %}
         </div>
         
+        <!-- Lightbox Overlay -->
+        <div id="lightbox-overlay">
+            <div id="lightbox-container">
+                <img id="lightbox-image" src="#" alt="Enlarged Image">
+                <span id="close-lightbox">&times;</span>
+            </div>
+        </div>
+
         <!-- Pagination -->
         {% if collection_data.has_previous or collection_data.has_next %}
             <div class="row mt-5">
@@ -59,9 +114,56 @@
     {% else %}
         <div class="row">
             <div class="col-md-12">
-                <p class="text-center">Your collection is empty.</p>
+                <p class="text-center"><strong>Your collection is empty.</strong></p>
             </div>
         </div>
     {% endif %}
 </div>
+
+<script>
+    // Delete Nails Design from Collection
+    $(document).on('click', '.remove-from-collection', function(e){
+        e.preventDefault();
+        var nailsDesignId = $(this).data('index'); 
+        $.ajax({
+            type: 'POST',
+            url: '{% url "remove from collection" %}',
+            data: {
+                nails_design_id: nailsDesignId,
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                action: 'post'
+            },
+            success: function(response){
+                location.reload();
+            },
+            error: function(xhr, errmsg, err){
+                console.log("Error:", errmsg);
+            }
+        });
+    });
+
+    // Lightbox functionality
+    const nailImages = document.querySelectorAll('.nail-image');
+    const lightboxOverlay = document.getElementById('lightbox-overlay');
+    const lightboxContainer = document.getElementById('lightbox-container');
+    const lightboxImage = document.getElementById('lightbox-image');
+    const closeLightbox = document.getElementById('close-lightbox');
+
+    nailImages.forEach(image => {
+        image.addEventListener('click', () => {
+            const imageUrl = image.getAttribute('src');
+            lightboxImage.setAttribute('src', imageUrl);
+            lightboxOverlay.style.display = 'flex';
+        });
+    });
+
+    // Close lightbox
+    lightboxOverlay.addEventListener('click', function (event) {
+        if (event.target === lightboxOverlay || event.target === closeLightbox) {
+            lightboxOverlay.style.display = 'none';
+        }
+    });
+
+</script>
+
 {% endblock %}
